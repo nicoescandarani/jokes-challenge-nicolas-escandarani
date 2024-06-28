@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SpinnerService } from './services/spinner/spinner.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'jokes-challenge-nicolas-escandarani';
+  isLoading$: Observable<boolean>;
+
+  constructor(private spinnerService: SpinnerService) {
+    this.isLoading$ = this.spinnerService.isLoading$;
+  }
 }

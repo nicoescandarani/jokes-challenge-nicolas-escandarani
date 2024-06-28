@@ -1,0 +1,23 @@
+<div class="jokes">
+  <div class="jokes__filters">
+    <div class="jokes__filters__button-wrapper" *ngFor="let filter of filters">
+      <ui-button (onClick)="applyFilter(filter)">
+        <div class="jokes__filters__button-wrapper__content">
+          <span>{{ filter }}</span>
+          <span [ngClass]="{'arrow--rotate': sort === 'asc'}" class="arrow"></span>
+        </div>
+      </ui-button>
+    </div>
+    <div class="jokes__filters__button-wrapper">
+      <ui-button (onClick)="getRandomJoke()">Grab a random joke</ui-button>
+    </div>
+    <div class="jokes__filters__button-wrapper">
+      <ui-button (onClick)="getAllJokes()">Get all jokes</ui-button>
+    </div>
+  </div>
+  <app-list
+    [apiResponse]="apiResponse"
+    [pagination]="pagination"
+    (onPageChange)="onPageChange($event)"
+  ></app-list>
+</div>

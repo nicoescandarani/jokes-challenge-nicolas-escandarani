@@ -1,0 +1,35 @@
+<div class="list">
+  <div class="list__item-wrapper" *ngFor="let joke of jokes | paginate: { itemsPerPage: apiResponse?.perPage, currentPage: apiResponse?.currentPage, totalItems: apiResponse?.totalItems }; let i = index">
+    <div class="list__item-wrapper__item">
+      <div class="list__item-wrapper__item__joke">
+        <p>- {{ joke.setup }}</p>
+        <p>- {{ joke.punchline }}</p>
+      </div>
+      <span>{{ joke.type }}</span>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="pagination" class="pagination">
+  <!-- <pagination-controls (pageChange)="onPaginationChange($event)"></pagination-controls> -->
+  <pagination-template #p="paginationApi" (pageChange)="onPaginationChange($event)">
+    <div class="pagination__content">
+      <div class="pagination__previous" [ngClass]="{'pagination__previous--disabled': p.isFirstPage()}">
+        <a (click)="p.previous()"> < </a>
+      </div>
+
+      <div *ngFor="let page of p.pages" class="pagination__page-selector" [ngClass]="{'pagination__page-selector--current': p.getCurrent() === page.value}">
+        <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+          <span>{{ page.label }}</span>
+        </a>
+        <div *ngIf="p.getCurrent() === page.value">
+          <span>{{ page.label }}</span>
+        </div>
+      </div>
+
+      <div class="pagination__next" [ngClass]="{'pagination__next--disabled': p.isLastPage()}">
+        <a (click)="p.next()"> > </a>
+      </div>
+    </div>
+  </pagination-template>
+</div>
