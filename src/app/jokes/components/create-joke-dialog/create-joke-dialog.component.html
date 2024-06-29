@@ -1,0 +1,45 @@
+<div class="dialog-wrapper">
+  <div class="dialog">
+    <h2>New joke</h2>
+    <ui-dialog>
+      <form [formGroup]="fg" (ngSubmit)="saveNewJoke()">
+        <div class="dialog__input-wrapper">
+          <label for="setup">Setup</label>
+          <input type="text" id="setup" formControlName="setup" />
+        </div>
+        <div class="dialog__input-wrapper">
+          <label for="punchline">Punchline</label>
+          <input type="text" id="punchline" formControlName="punchline" />
+        </div>
+        <div class="dialog__input-wrapper">
+          <label for="type">Type</label>
+          <select id="type" formControlName="type">
+            <option value="" disabled selected>Select a type</option>
+            <option *ngFor="let type of jokeTypes | keyvalue" [value]="type.key">
+              {{ type.value }}
+            </option>
+          </select>
+        </div>
+        <div class="dialog__buttons">
+          <div class="dialog__button-wrapper">
+            <ui-button
+              [color]="'tertiary'"
+              [type]="'button'"
+              [centered]="true"
+              (onClick)="cancelNewJoke()"
+            >Cancel</ui-button>
+          </div>
+          <div class="dialog__button-wrapper">
+            <ui-button
+              [color]="'secondary'"
+              [type]="'submit'"
+              [centered]="true"
+              [disabled]="fg.invalid || (!fg.pristine && fg.invalid)"
+            >Save</ui-button>
+          </div>
+        </div>
+      </form>
+    </ui-dialog>
+  </div>
+  <div (click)="cancelNewJoke()" class="dialog-overlay"></div>
+</div>

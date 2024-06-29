@@ -1,0 +1,59 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  overflow-x: auto;
+
+  &__filters,
+  &__options {
+    display: flex;
+    align-items: center;
+  }
+
+  &__button-wrapper {
+    margin-right: 24px;
+
+    &__content {
+      display: flex;
+      align-items: center;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &--searchbar {
+      display: flex;
+      align-items: center;
+
+      svg {
+        fill: #ffffff;
+      }
+    }
+  }
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #ffffff;
+  margin-left: 16px;
+  transition: all 0.15s ease-in-out;
+
+  &--rotate {
+    transform: rotate(180deg);
+  }
+}
+
+select {
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  background-color: #3c3d4a;
+  border: none;
+  color: #ffffff;
+  margin-right: 16px;
+}

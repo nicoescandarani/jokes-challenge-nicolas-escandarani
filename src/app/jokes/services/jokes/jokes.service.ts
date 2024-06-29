@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Joke } from '../../interfaces/joke';
+import { ApiResponse, Joke } from '../../interfaces/joke';
 import { environment } from 'src/environments/environment';
-import { ApiResponse } from '../../interfaces/api-response';
 import { Sorting } from 'src/app/utils/types';
 
 @Injectable({
@@ -13,14 +12,27 @@ export class JokesService {
 
   constructor(private http: HttpClient) { }
 
-  getAllJokes(page: number, limit: number, sort: Sorting): Observable<ApiResponse> {
-    let params = new HttpParams();
-    params = params.append('page', page ? page.toString() : '1');
-    params = params.append('limit', limit ? limit.toString() : '10');
-    if (sort) {
-      params = params.set('sort', sort);
+  getAllJokes(page: number = 1, limit: number = 10, sort: string = 'id_asc', searchText: string = ''): Observable<ApiResponse> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString())
+      .set('sort', sort);
+
+    if (searchText) {
+      params = params.set('searchText', searchText);
     }
-    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/all`, { params });
+
+    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}`, { params });
+  }
+
+  searchJokes(searchText: string, page: number = 1, limit: number = 10, sort: string = 'id_asc'): Observable<ApiResponse> {
+    const params = new HttpParams()
+      .set('searchText', searchText)
+      .set('page', page.toString())
+      .set('limit', limit.toString())
+      .set('sort', sort);
+
+    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/search`, { params });
   }
 
   getRandomJoke(): Observable<ApiResponse> {
@@ -31,16 +43,24 @@ export class JokesService {
     return this.http.get<ApiResponse[]>(`${environment.base_url}/${environment.jokes_sufix}/ten`);
   }
 
-  getJokeById(id: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/${id}`);
+  getJokeById(id: number): Observable<Joke> {
+    return this.http.get<Joke>(`${environment.base_url}/${environment.jokes_sufix}/${id}`);
   }
 
   getJokesByType(type: string, count: number): Observable<ApiResponse[]> {
     return this.http.get<ApiResponse[]>(`${environment.base_url}/${environment.jokes_sufix}/${type}/${count === 10 ? 'ten' : 'random'}`);
   }
 
-  createJoke(joke: { type: string, setup: string, punchline: string }): Observable<Joke> {
+  createJoke(joke: Joke): Observable<Joke> {
     return this.http.post<Joke>(`${environment.base_url}/${environment.jokes_sufix}`, joke);
+  }
+
+  addLike(jokeId: number): Observable<Joke> {
+    return this.http.post<Joke>(`${environment.base_url}/${environment.jokes_sufix}/${jokeId}/like`, {});
+  }
+
+  dislike(jokeId: number): Observable<Joke> {
+    return this.http.post<Joke>(`${environment.base_url}/${environment.jokes_sufix}/${jokeId}/dislike`, {});
   }
 
   deleteJoke(id: number): Observable<Joke> {

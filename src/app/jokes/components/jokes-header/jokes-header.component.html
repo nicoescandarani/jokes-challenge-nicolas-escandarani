@@ -1,0 +1,47 @@
+<div class="header">
+  <div class="header__options">
+    <div class="header__button-wrapper">
+      <ui-button (onClick)="getAllJokesEmit()">All jokes</ui-button>
+    </div>
+    <div class="header__button-wrapper">
+      <ui-button (onClick)="getRandomJokeEmit()">Random joke</ui-button>
+    </div>
+    <div class="header__button-wrapper">
+      <ui-button [color]="'cta'" (onClick)="createJokeEmit()">Create a joke</ui-button>
+    </div>
+  </div>
+  <div class="header__filters">
+    <select id="sort" [(ngModel)]="sort" (change)="onSortChange($event)">
+      <option value="" disabled>Sort</option>
+      <option *ngFor="let rule of sortingRules" [value]="rule.value">
+        {{ rule.label }}
+      </option>
+    </select>
+
+
+
+    <!-- Order by ID -->
+    <!-- <div class="header__button-wrapper">
+      <ui-button (onClick)="orderByIdEmit()">
+        <div class="header__button-wrapper__content">
+          <span>Id</span>
+          <span [ngClass]="{'arrow--rotate': sort === 'id_asc'}" class="arrow"></span>
+        </div>
+      </ui-button>
+    </div> -->
+    <!-- Order by likes -->
+    <!-- <div class="header__button-wrapper">
+      <ui-button (onClick)="orderByLikesEmit()">
+        <div class="header__button-wrapper__content">
+          <span>Likes</span>
+          <span [ngClass]="{'arrow--rotate': sort === 'likes_asc'}" class="arrow"></span>
+        </div>
+      </ui-button>
+    </div> -->
+    <div class="header__button-wrapper header__button-wrapper--searchbar">
+      <ui-searchbar
+        (search)="searchJokesEmit($event)"
+      ></ui-searchbar>
+    </div>
+  </div>
+</div>

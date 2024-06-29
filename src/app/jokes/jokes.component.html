@@ -1,23 +1,27 @@
 <div class="jokes">
-  <div class="jokes__filters">
-    <div class="jokes__filters__button-wrapper" *ngFor="let filter of filters">
-      <ui-button (onClick)="applyFilter(filter)">
-        <div class="jokes__filters__button-wrapper__content">
-          <span>{{ filter }}</span>
-          <span [ngClass]="{'arrow--rotate': sort === 'asc'}" class="arrow"></span>
-        </div>
-      </ui-button>
-    </div>
-    <div class="jokes__filters__button-wrapper">
-      <ui-button (onClick)="getRandomJoke()">Grab a random joke</ui-button>
-    </div>
-    <div class="jokes__filters__button-wrapper">
-      <ui-button (onClick)="getAllJokes()">Get all jokes</ui-button>
-    </div>
-  </div>
+  <!-- Header -->
+  <app-jokes-header
+    [sort]="sort"
+    (getRandomJoke)="getRandomJoke()"
+    (getAllJokes)="getAllJokes()"
+    (createJoke)="createJoke()"
+    (sortChange)="onSortChange($event)"
+    (search)="searchJokes($event)"
+  ></app-jokes-header>
+  <!-- List -->
   <app-list
     [apiResponse]="apiResponse"
-    [pagination]="pagination"
+    [likedJokes]="likedJokes"
     (onPageChange)="onPageChange($event)"
+    (copyJoke)="copyJoke($event)"
+    (likeJoke)="likeJoke($event)"
   ></app-list>
+</div>
+
+<!-- New Joke Dialog -->
+<div *ngIf="openNewJokeDialog" class="create-joke-dialog-wrapper">
+  <app-create-joke-dialog
+    (cancel)="cancelNewJoke()"
+    (save)="saveNewJoke($event)"
+  ></app-create-joke-dialog>
 </div>

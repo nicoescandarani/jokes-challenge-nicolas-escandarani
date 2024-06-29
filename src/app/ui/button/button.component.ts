@@ -7,7 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() title: string = '';
-  @Input() color: 'primary' | 'secondary' | 'tertiary' = 'primary';
+  @Input() color: 'primary' | 'secondary' | 'tertiary' | 'cta' | 'empty' = 'primary';
+  @Input() disabled: boolean = false;
+  @Input() type: 'button' | 'submit' = 'button';
+  @Input() centered: boolean = false;
 
   @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
 

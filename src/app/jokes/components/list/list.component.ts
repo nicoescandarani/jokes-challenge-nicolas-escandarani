@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Joke } from '../../interfaces/joke';
-import { ApiResponse } from '../../interfaces/api-response';
+import { ApiResponse, CopyJoke, Joke } from '../../interfaces/joke';
 
 @Component({
   selector: 'app-list',
@@ -9,7 +8,6 @@ import { ApiResponse } from '../../interfaces/api-response';
 })
 export class ListComponent {
   @Input() sortBy: string = 'id';
-  @Input() pagination: boolean = true;
   @Input()
   set apiResponse(value: ApiResponse) {
     if (value) {
@@ -20,11 +18,14 @@ export class ListComponent {
       });
     }
   }
+  @Input() likedJokes: number[] = [];
 
   @Output() deleteJoke: EventEmitter<number> = new EventEmitter<number>();
   @Output() deleteMultipleJokes: EventEmitter<number[]> = new EventEmitter<number[]>();
   @Output() getMoreJokes: EventEmitter<number> = new EventEmitter<number>();
   @Output() onPageChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() copyJoke: EventEmitter<CopyJoke> = new EventEmitter<CopyJoke>();
+  @Output() likeJoke: EventEmitter<number> = new EventEmitter<number>();
 
   jokes: Joke[] = [];
   private _apiResponse?: ApiResponse;
@@ -45,6 +46,14 @@ export class ListComponent {
 
   onPaginationChange(event: any) {
     this.onPageChange.emit(event);
+  }
+
+  copyJokeEmit(setup: string, punchline: string): void {
+    this.copyJoke.emit({setup, punchline});
+  }
+
+  likeJokeEmit(id: number): void {
+    this.likeJoke.emit(id);
   }
 
   get apiResponse(): ApiResponse {
