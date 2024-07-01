@@ -11,6 +11,7 @@ export class ButtonComponent {
   @Input() disabled: boolean = false;
   @Input() type: 'button' | 'submit' = 'button';
   @Input() centered: boolean = false;
+  @Input() backgroundColor: string = '';
 
   @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
 

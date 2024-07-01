@@ -8,7 +8,9 @@ import {
   SpinnerComponent,
   CardComponent,
   DialogComponent,
-  SearchbarComponent
+  SearchbarComponent,
+  MenuComponent,
+  DropdownComponent
 } from './index';
 
 @NgModule({
@@ -18,7 +20,9 @@ import {
     SpinnerComponent,
     CardComponent,
     DialogComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    MenuComponent,
+    DropdownComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +35,9 @@ import {
     SpinnerComponent,
     CardComponent,
     DialogComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    MenuComponent,
+    DropdownComponent
   ]
 })
 export class UiModule { }

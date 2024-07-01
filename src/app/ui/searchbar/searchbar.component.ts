@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnDestroy, Output } from "@angular/core";
 import { BehaviorSubject, Subscription, debounceTime, distinctUntilChanged } from "rxjs";
+import { StateService } from "src/app/services/state/state.service";
 
 @Component({
   selector: 'ui-searchbar',
@@ -10,19 +11,19 @@ export class SearchbarComponent implements OnDestroy {
   searchText: string = '';
   private subscription: Subscription = new Subscription();
   private searchSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  private firstEmit = false; // Flag to skip the initial emission of empty string
+  private firstEmit = false; // Flag to skip the initial emission of empty string.
 
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {
+  constructor(private stateService: StateService) {
     this.subscription.add(
       this.searchSubject.pipe(
         debounceTime(450),
         distinctUntilChanged()
       ).subscribe(searchText => {
         if (this.firstEmit || searchText !== '') {
-          this.search.emit(searchText);
-          this.firstEmit = true; // Set the flag to true after the first emission
+          this.stateService.searchTextSet = searchText;
+          this.firstEmit = true; // Set the flag to true after the first emission.
         }
       })
     );

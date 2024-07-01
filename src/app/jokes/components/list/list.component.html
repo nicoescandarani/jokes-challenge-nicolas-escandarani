@@ -13,7 +13,7 @@
         <p>- {{ joke.punchline }}</p>
       </div>
       <div class="list__item-wrapper__item__joke__footer">
-        <span class="list__item-wrapper__item__joke__footer__type">{{ joke.type | titlecase }}</span>
+        <span [ngClass]="'list__item-wrapper__item__joke__footer__type--' + joke.type" class="list__item-wrapper__item__joke__footer__type">{{ joke.type | titlecase }}</span>
         <div class="list__item-wrapper__item__joke__like-button">
           <ui-button
             [color]="'empty'"

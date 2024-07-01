@@ -21,6 +21,19 @@ a {
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #44475d;
-  color: #ffffff;
+  background-color: var(--bg-color);
+  color: var(--pure-white);
+}
+
+:root {
+  --pure-white: #FFFFFF;
+  --bg-color: #44475d;
+  --black: #3c3d4a;
+  --transprent-black: #000000b5;
+  --green: #95ffb2;
+  --orange: #ffb941;
+  --blue: #b7baff;
+
+  --border-radius: 6px;
+  --box-shadow: 4px 6px 8px 4px rgb(0 0 0 / 11%);
 }

@@ -1,4 +1,12 @@
 .header {
-  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36px;
   text-align: center;
+
+  &__searchbar-wrapper {
+    max-width: 240px;
+    width: 100%;
+  }
 }

@@ -1,23 +1,29 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JokeType } from '../../enums/joke-type';
+import { DropdownItem } from 'src/app/utils/utils';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-create-joke-dialog',
   templateUrl: './create-joke-dialog.component.html',
-  styleUrls: ['./create-joke-dialog.component.scss']
+  styleUrls: ['./create-joke-dialog.component.scss'],
+  providers: [TitleCasePipe]
 })
 export class CreateJokeDialogComponent {
   fg!: FormGroup;
   jokeTypes = JokeType;
+  jokeTypesForDropdown: DropdownItem[] = [];
+  selectedJokeType: DropdownItem = this.jokeTypesForDropdown[0];
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() save: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private titleCasePipe: TitleCasePipe) {}
 
   ngOnInit() {
     this.initForm();
+    this.initJokeTypesForDropdown();
   }
 
   initForm(): void {
@@ -28,11 +34,22 @@ export class CreateJokeDialogComponent {
     });
   }
 
+  initJokeTypesForDropdown(): void {
+    this.jokeTypesForDropdown = Object.keys(this.jokeTypes).map(key => {
+      return { value: key, label: this.titleCasePipe.transform(this.jokeTypes [key as keyof typeof JokeType]) };
+    });
+  }
+
   cancelNewJoke(): void {
     this.fg.reset();
     this.fg.markAsPristine();
     this.fg.get('type')?.setValue('general');
     this.cancel.emit();
+  }
+
+  selectJokeType(jokeType: DropdownItem): void {
+    this.selectedJokeType = jokeType;
+    this.fg.get('type')?.setValue(jokeType.value);
   }
 
   saveNewJoke(): void {

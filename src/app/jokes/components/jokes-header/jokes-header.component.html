@@ -1,47 +1,69 @@
 <div class="header">
   <div class="header__options">
     <div class="header__button-wrapper">
-      <ui-button (onClick)="getAllJokesEmit()">All jokes</ui-button>
-    </div>
-    <div class="header__button-wrapper">
-      <ui-button (onClick)="getRandomJokeEmit()">Random joke</ui-button>
-    </div>
-    <div class="header__button-wrapper">
-      <ui-button [color]="'cta'" (onClick)="createJokeEmit()">Create a joke</ui-button>
+      <ui-button [color]="'cta'" (onClick)="createJokeEmit()">Create a Joke</ui-button>
     </div>
   </div>
   <div class="header__filters">
-    <select id="sort" [(ngModel)]="sort" (change)="onSortChange($event)">
-      <option value="" disabled>Sort</option>
-      <option *ngFor="let rule of sortingRules" [value]="rule.value">
-        {{ rule.label }}
-      </option>
-    </select>
-
-
-
-    <!-- Order by ID -->
-    <!-- <div class="header__button-wrapper">
-      <ui-button (onClick)="orderByIdEmit()">
-        <div class="header__button-wrapper__content">
-          <span>Id</span>
-          <span [ngClass]="{'arrow--rotate': sort === 'id_asc'}" class="arrow"></span>
+    <div class="header__filters__options">
+      <ui-button (onClick)="openMenu('sort')">
+        <div class="header__filters__button-content">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"/>
+          </svg>
+          <span>Sort</span>
         </div>
       </ui-button>
-    </div> -->
-    <!-- Order by likes -->
-    <!-- <div class="header__button-wrapper">
-      <ui-button (onClick)="orderByLikesEmit()">
-        <div class="header__button-wrapper__content">
-          <span>Likes</span>
-          <span [ngClass]="{'arrow--rotate': sort === 'likes_asc'}" class="arrow"></span>
+      <div *ngIf="openedMenu === 'sort'" class="header__filters__options__menu-wrapper">
+        <ui-menu>
+          <!-- By Date -->
+          <div class="header__filters__options__menu-wrapper__dropdown-wrapper">
+            <h3>By Date</h3>
+            <ui-dropdown
+              [items]="idSortingRules"
+              [selectedItem]="sort"
+              (selectItem)="onSortChange($event)"
+            ></ui-dropdown>
+          </div>
+          <!-- By Likes -->
+          <h3>By Likes</h3>
+          <div class="header__filters__options__menu-wrapper__dropdown-wrapper">
+            <ui-dropdown
+              [items]="likesSortingRules"
+              [selectedItem]="sort"
+              (selectItem)="onSortChange($event)"
+            ></ui-dropdown>
+          </div>
+        </ui-menu>
+      </div>
+    </div>
+    <div class="header__filters__options">
+      <ui-button (onClick)="openMenu('filters')">
+        <div class="header__filters__button-content">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/>
+          </svg>
+          <span>Filters</span>
         </div>
       </ui-button>
-    </div> -->
-    <div class="header__button-wrapper header__button-wrapper--searchbar">
-      <ui-searchbar
-        (search)="searchJokesEmit($event)"
-      ></ui-searchbar>
+      <div *ngIf="openedMenu === 'filters'" class="header__filters__options__menu-wrapper">
+        <ui-menu>
+          <div class="header__button-wrapper">
+            <ui-button [color]="'secondary'" (onClick)="getAllJokesEmit()">All jokes</ui-button>
+          </div>
+          <div class="header__button-wrapper">
+            <ui-button [color]="'secondary'" (onClick)="getRandomJokeEmit()">Random joke</ui-button>
+          </div>
+          <!-- By Date -->
+          <div class="header__filters__options__menu-wrapper__dropdown-wrapper">
+            <!-- <ui-dropdown
+              [items]="typesSortingRules"
+              [selectedItem]="sort"
+              (selectItem)="onSortChange($event)"
+            ></ui-dropdown> -->
+          </div>
+        </ui-menu>
+      </div>
     </div>
   </div>
 </div>

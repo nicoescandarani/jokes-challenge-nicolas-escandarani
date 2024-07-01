@@ -1,4 +1,5 @@
 export enum JokeType {
   general = 'general',
-  programming = 'programming'
+  programming = 'programming',
+  knock_knock = 'knock-knock'
 }

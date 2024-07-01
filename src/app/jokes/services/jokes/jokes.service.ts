@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse, Joke } from '../../interfaces/joke';
 import { environment } from 'src/environments/environment';
-import { Sorting } from 'src/app/utils/types';
 
 @Injectable({
   providedIn: 'root'
