@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JokeType } from '../../enums/joke-type';
-import { DropdownItem } from 'src/app/utils/utils';
+import { DropdownItem, typesBgColors } from 'src/app/utils/utils';
 import { TitleCasePipe } from '@angular/common';
 
 @Component({
@@ -15,6 +15,7 @@ export class CreateJokeDialogComponent {
   jokeTypes = JokeType;
   jokeTypesForDropdown: DropdownItem[] = [];
   selectedJokeType: DropdownItem = this.jokeTypesForDropdown[0];
+  typesBgColors: Map<string, string> = typesBgColors;
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() save: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
@@ -35,9 +36,10 @@ export class CreateJokeDialogComponent {
   }
 
   initJokeTypesForDropdown(): void {
-    this.jokeTypesForDropdown = Object.keys(this.jokeTypes).map(key => {
-      return { value: key, label: this.titleCasePipe.transform(this.jokeTypes [key as keyof typeof JokeType]) };
-    });
+    this.jokeTypesForDropdown = Object.values(JokeType).map(type => ({
+      value: type,
+      label: this.titleCasePipe.transform(type)
+    }));
   }
 
   cancelNewJoke(): void {

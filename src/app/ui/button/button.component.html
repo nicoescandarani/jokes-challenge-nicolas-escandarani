@@ -9,7 +9,9 @@
       'button--centered': centered
     }
   "
+  [ngStyle]="{'background-color': backgroundColor || '', 'color': textColor || '', 'font-weight': textColor ? 600 : ''}"
   [disabled]="disabled"
+  [title]="title"
   (click)="onClickEmit()"
   class="button"
 >

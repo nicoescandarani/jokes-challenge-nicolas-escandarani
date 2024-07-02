@@ -15,6 +15,8 @@
           <ui-dropdown
             [items]="jokeTypesForDropdown"
             [selectedItem]="selectedJokeType"
+            [bgColors]="typesBgColors"
+            [label]="'Select a Type'"
             (selectItem)="selectJokeType($event)"
           ></ui-dropdown>
         </div>
@@ -24,6 +26,7 @@
               [color]="'tertiary'"
               [type]="'button'"
               [centered]="true"
+              [title]="'Cancel'"
               (onClick)="cancelNewJoke()"
             >Cancel</ui-button>
           </div>
@@ -32,6 +35,7 @@
               [color]="'secondary'"
               [type]="'submit'"
               [centered]="true"
+              [title]="'Save'"
               [disabled]="fg.invalid || (!fg.pristine && fg.invalid)"
             >Save</ui-button>
           </div>

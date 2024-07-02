@@ -1,7 +1,7 @@
 <div class="dropdown">
-  <ui-button [color]="'secondary'" (onClick)="toggleMenu()" class="dropdown__toggle">
+  <ui-button [title]="'Open Dropdown'" [color]="'secondary'" (onClick)="toggleMenu()" class="dropdown__toggle">
     <div class="dropdown__toggle__content">
-      <span>{{ selectedItem && selectedItemExistsInItems ? selectedItem.label : 'Select an Option' }}</span>
+      <span>{{ selectedItem && selectedItemExistsInItems ? selectedItem.label : label }}</span>
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
         <path d="M480-360 280-560h400L480-360Z"/>
       </svg>
@@ -9,8 +9,8 @@
   </ui-button>
   <div *ngIf="menuOpen" class="dropdown__content">
     <div *ngFor="let item of unselectedItems" class="dropdown__content__item">
-      <ui-button [color]="'secondary'" (onClick)="selectItemEmit(item)">
-        {{ item.label }}
+      <ui-button [title]="item.label" [backgroundColor]="(bgColors && bgColors.get(item.value)) || ''" [textColor]="bgColors ? 'var(--black)' : ''" [color]="'secondary'" (onClick)="selectItemEmit(item)">
+        {{ item.label | titlecase }}
       </ui-button>
     </div>
   </div>

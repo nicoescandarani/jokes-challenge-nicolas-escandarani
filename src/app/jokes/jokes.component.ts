@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Subscription, skip } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
 import { ApiResponse, CopyJoke, Joke } from './interfaces/joke';
-import { Sorting, SortingDropdownItem } from '../utils/utils';
+import { RandomJokesAmount, DropdownItem, Sorting } from '../utils/utils';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { FormGroup } from '@angular/forms';
 import { StateService } from '../services/state/state.service';
@@ -15,7 +15,7 @@ import { StateService } from '../services/state/state.service';
 export class JokesComponent {
   apiResponse!: ApiResponse;
   jokes: Joke[] = [];
-  sort: SortingDropdownItem = { value: 'id_asc', label: 'Newest to Latest' };
+  sort: DropdownItem = { value: Sorting.id_desc, label: 'Newest to Latest' };
   openNewJokeDialog: boolean = false;
   likedJokes: number[] = [];
 
@@ -32,11 +32,11 @@ export class JokesComponent {
   }
 
   ngOnInit() {
-    this.getAllJokes(1, 10, this.sort.value);
+    this.getAllJokes(1, 10, this.sort.value as Sorting);
     this.likedJokes = JSON.parse(localStorage.getItem('likedJokes') || '[]');
   }
 
-  getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = 'id_asc'): void {
+  getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = Sorting.id_asc): void {
     this.checkSubscriptions();
     // Create a new subscription.
     this.jokesSubscription = this.jokesService.getAllJokes(page, limit, sort).subscribe(res => {
@@ -46,28 +46,46 @@ export class JokesComponent {
   }
 
   onPageChange(page: number): void {
-    this.getAllJokes(page, 10, this.sort.value);
+    this.getAllJokes(page, 10, this.sort.value as Sorting);
   }
 
-  onSortChange(sort: SortingDropdownItem): void {
+  onSortChange(sort: DropdownItem): void {
     this.sort  = sort;
-    this.getAllJokes(1, 10, this.sort.value);
+    this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   orderById(): void {
-    this.sort.value = this.sort.value === 'id_asc' ? 'id_desc' : 'id_asc';
-    this.getAllJokes(1, 10, this.sort.value);
+    this.sort.value = this.sort.value === Sorting.id_asc ? Sorting.id_desc : Sorting.id_asc;
+    this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   orderByLikes(): void {
-    this.sort.value = this.sort.value === 'likes_asc' ? 'likes_desc' : 'likes_asc';
-    this.getAllJokes(1, 10, this.sort.value);
+    this.sort.value = this.sort.value === Sorting.likes_asc ? Sorting.likes_desc : Sorting.likes_asc;
+    this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
-  getRandomJoke(): void {
+  getRandomJokes(amount: RandomJokesAmount): void {
     this.checkSubscriptions();
     // Create a new subscription.
-    this.jokesSubscription = this.jokesService.getRandomJoke().subscribe(res => {
+    if (amount === RandomJokesAmount.one) {
+      this.jokesSubscription = this.jokesService.getRandomJoke().subscribe(res => {
+        this.apiResponse = res;
+        this.jokes = res.data;
+      });
+    } else {
+      this.jokesSubscription = this.jokesService.getTenRandomJokes().subscribe(res => {
+        this.apiResponse = res;
+        this.jokes = res.data;
+      });
+    }
+  }
+
+  getJokesByType(type: DropdownItem): void {
+    console.log(type);
+
+    this.checkSubscriptions();
+    // Create a new subscription.
+    this.jokesSubscription = this.jokesService.getJokesByType(type.value, 10).subscribe(res => {
       this.apiResponse = res;
       this.jokes = res.data;
     });
@@ -102,7 +120,7 @@ export class JokesComponent {
       type: fg.get('type')?.value
     };
     const createJokeSubscription$ = this.jokesService.createJoke(joke).subscribe(res => {
-      this.jokes.push(res);
+      this.jokes.unshift(res);
     });
     this.subscriptions.push(createJokeSubscription$);
     this.openNewJokeDialog = false;

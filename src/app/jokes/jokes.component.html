@@ -2,8 +2,10 @@
   <!-- Header -->
   <app-jokes-header
     [sort]="sort"
-    (getRandomJoke)="getRandomJoke()"
+    [amountOfItems]="apiResponse ? apiResponse.data.length : 0"
+    (getRandomJokes)="getRandomJokes($event)"
     (getAllJokes)="getAllJokes()"
+    (getJokesByType)="getJokesByType($event)"
     (createJoke)="createJoke()"
     (sortChange)="onSortChange($event)"
   ></app-jokes-header>

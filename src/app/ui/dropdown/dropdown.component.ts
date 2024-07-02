@@ -1,25 +1,28 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { DropdownItem } from 'src/app/utils/utils';
 
 @Component({
   selector: 'ui-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss']
 })
-export class DropdownComponent<T extends { label: string; value: any }> {
+export class DropdownComponent {
   constructor(private eRef: ElementRef) { }
 
-  @Input() selectedItem?: T;
+  @Input() selectedItem?: DropdownItem;
+  @Input() label: string = 'Select an Option';
+  @Input() bgColors!: Map<string, string>;
   @Input()
-  set items(value: T[]) {
+  set items(value: DropdownItem[]) {
     if (value) {
       this._items = value;
     }
   }
 
-  @Output() selectItem: EventEmitter<T> = new EventEmitter<T>();
+  @Output() selectItem: EventEmitter<DropdownItem> = new EventEmitter<DropdownItem>();
 
   menuOpen: boolean = false;
-  private _items: T[] = [];
+  private _items: DropdownItem[] = [];
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
@@ -30,7 +33,7 @@ export class DropdownComponent<T extends { label: string; value: any }> {
     }
   }
 
-  selectItemEmit(item: T): void {
+  selectItemEmit(item: DropdownItem): void {
     this.selectItem.emit(item);
     this.selectedItem = item;
     this.menuOpen = false;
@@ -44,11 +47,11 @@ export class DropdownComponent<T extends { label: string; value: any }> {
     return this._items.some(item => item.value === this.selectedItem?.value);
   }
 
-  get unselectedItems(): T[] {
+  get unselectedItems(): DropdownItem[] {
     return this._items.filter(item => item.value !== this.selectedItem?.value);
   }
 
-  get items(): T[] {
+  get items(): DropdownItem[] {
     return this._items;
   }
 }

@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ButtonComponent {
   @Input() title: string = '';
   @Input() color: 'primary' | 'secondary' | 'tertiary' | 'cta' | 'empty' = 'primary';
+  @Input() textColor: string = '';
   @Input() disabled: boolean = false;
   @Input() type: 'button' | 'submit' = 'button';
   @Input() centered: boolean = false;
