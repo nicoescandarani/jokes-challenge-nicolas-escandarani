@@ -67,4 +67,12 @@
 <!-- Empty State -->
 <div *ngIf="!apiResponse || apiResponse.data.length === 0" class="empty-state">
   <h3>There are no joke to show</h3>
+  <div class="empty-state__button-wrapper">
+    <ui-button
+      [color]="'cta'"
+      [title]="'Try getting all jokes again'"
+      [centered]="true"
+      (onClick)="getAllJokesEmit()"
+    >Try Getting All Jokes Again</ui-button>
+  </div>
 </div>

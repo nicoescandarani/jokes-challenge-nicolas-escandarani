@@ -13,6 +13,7 @@
   <app-list
     [apiResponse]="apiResponse"
     [likedJokes]="likedJokes"
+    (getAllJokes)="getAllJokes()"
     (onPageChange)="onPageChange($event)"
     (copyJoke)="copyJoke($event)"
     (likeJoke)="likeJoke($event)"

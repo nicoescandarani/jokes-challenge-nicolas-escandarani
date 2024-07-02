@@ -20,6 +20,7 @@ export class ListComponent {
   }
   @Input() likedJokes: number[] = [];
 
+  @Output() getAllJokes: EventEmitter<void> = new EventEmitter<void>();
   @Output() deleteJoke: EventEmitter<number> = new EventEmitter<number>();
   @Output() deleteMultipleJokes: EventEmitter<number[]> = new EventEmitter<number[]>();
   @Output() getMoreJokes: EventEmitter<number> = new EventEmitter<number>();
@@ -54,6 +55,10 @@ export class ListComponent {
 
   likeJokeEmit(id: number): void {
     this.likeJoke.emit(id);
+  }
+
+  getAllJokesEmit(): void {
+    this.getAllJokes.emit();
   }
 
   get apiResponse(): ApiResponse {

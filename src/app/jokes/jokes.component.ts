@@ -36,12 +36,13 @@ export class JokesComponent {
     this.likedJokes = JSON.parse(localStorage.getItem('likedJokes') || '[]');
   }
 
-  getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = Sorting.id_asc): void {
+  getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = Sorting.id_desc): void {
     this.checkSubscriptions();
     // Create a new subscription.
     this.jokesSubscription = this.jokesService.getAllJokes(page, limit, sort).subscribe(res => {
       this.apiResponse = res;
       this.jokes = res.data;
+      this.stateService.searchTextSet = '';
     });
   }
 
@@ -81,8 +82,6 @@ export class JokesComponent {
   }
 
   getJokesByType(type: DropdownItem): void {
-    console.log(type);
-
     this.checkSubscriptions();
     // Create a new subscription.
     this.jokesSubscription = this.jokesService.getJokesByType(type.value, 10).subscribe(res => {

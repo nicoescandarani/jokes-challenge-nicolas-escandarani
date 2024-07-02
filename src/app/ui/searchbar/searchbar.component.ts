@@ -9,24 +9,28 @@ import { StateService } from "src/app/services/state/state.service";
 })
 export class SearchbarComponent implements OnDestroy {
   searchText: string = '';
-  private subscription: Subscription = new Subscription();
+  private subscriptions: Subscription[] = [];
   private searchSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
   private firstEmit = false; // Flag to skip the initial emission of empty string.
 
   @Output() search: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private stateService: StateService) {
-    this.subscription.add(
-      this.searchSubject.pipe(
-        debounceTime(450),
-        distinctUntilChanged()
-      ).subscribe(searchText => {
-        if (this.firstEmit || searchText !== '') {
-          this.stateService.searchTextSet = searchText;
-          this.firstEmit = true; // Set the flag to true after the first emission.
-        }
-      })
-    );
+    const saerchSubscription$ = this.searchSubject.pipe(
+      debounceTime(450),
+      distinctUntilChanged()
+    ).subscribe(searchText => {
+      if (this.firstEmit || searchText !== '') {
+        this.stateService.searchTextSet = searchText;
+        this.firstEmit = true; // Set the flag to true after the first emission.
+      }
+    });
+    this.subscriptions.push(saerchSubscription$);
+
+    const searchTextSubsciption$ = this.stateService.searchText$.subscribe(searchText => {
+      this.searchText = searchText;
+    });
+    this.subscriptions.push(searchTextSubsciption$);
   }
 
   onSearchChange(value: string): void {
@@ -35,6 +39,6 @@ export class SearchbarComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
