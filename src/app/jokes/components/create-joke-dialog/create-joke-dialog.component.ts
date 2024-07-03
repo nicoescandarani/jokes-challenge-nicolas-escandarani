@@ -14,7 +14,7 @@ export class CreateJokeDialogComponent {
   fg!: FormGroup;
   jokeTypes = JokeType;
   jokeTypesForDropdown: DropdownItem[] = [];
-  selectedJokeType: DropdownItem = this.jokeTypesForDropdown[0];
+  selectedJokeType: DropdownItem = {} as DropdownItem;
   typesBgColors: Map<string, string> = typesBgColors;
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
@@ -40,6 +40,7 @@ export class CreateJokeDialogComponent {
       value: type,
       label: this.titleCasePipe.transform(type)
     }));
+    this.selectedJokeType = this.jokeTypesForDropdown.find(jokeType => jokeType.value === 'general') as DropdownItem;
   }
 
   cancelNewJoke(): void {
