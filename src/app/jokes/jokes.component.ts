@@ -1,18 +1,19 @@
 import { Component } from '@angular/core';
-import { Observable, Subscription, catchError, skip } from 'rxjs';
+import { Subscription, catchError, skip } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
 import { ApiResponse, CopyJoke, Joke, RandomJokesAmount } from './interfaces/joke';
 import { DropdownItem, Sorting } from '../utils/utils';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { FormGroup } from '@angular/forms';
 import { StateService } from '../services/state/state.service';
+import { AutoUnsubscribeComponent } from '../utils/auto-unsubscribe.component';
 
 @Component({
   selector: 'app-jokes',
   templateUrl: './jokes.component.html',
   styleUrls: ['./jokes.component.scss']
 })
-export class JokesComponent {
+export class JokesComponent extends AutoUnsubscribeComponent {
   apiResponse!: ApiResponse;
   jokes: Joke[] = [];
   sort: DropdownItem = { value: Sorting.id_desc, label: 'Newest to Latest' };
@@ -20,10 +21,10 @@ export class JokesComponent {
   userJokes: number[] = [];
   hideData: boolean = false;
 
-  private subscriptions: Subscription[] = [];
   private jokesSubscription?: Subscription;
 
   constructor(private jokesService: JokesService, private clipboard: Clipboard, private stateService: StateService) {
+    super();
     const searchTextSubscription$ = this.stateService.searchText$
       .pipe(skip(1)) // Ignore the first value emitted by the observable.
       .subscribe(searchText => {
@@ -139,13 +140,5 @@ export class JokesComponent {
 
   cancelNewJoke(): void {
     this.openNewJokeDialog = false;
-  }
-
-  ngOnDestroy() {
-    // Ensure to unsubscribe when the component is destroyed.
-    if (this.jokesSubscription) {
-      this.jokesSubscription.unsubscribe();
-      this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
   }
 }

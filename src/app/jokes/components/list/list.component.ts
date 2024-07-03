@@ -3,13 +3,14 @@ import { ApiResponse, CopyJoke, Joke } from '../../interfaces/joke';
 import { StateService } from 'src/app/services/state/state.service';
 import { Subscription } from 'rxjs';
 import { JokesService } from '../../services/jokes/jokes.service';
+import { AutoUnsubscribeComponent } from 'src/app/utils/auto-unsubscribe.component';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnDestroy {
+export class ListComponent extends AutoUnsubscribeComponent implements OnDestroy {
   @Input() sortBy: string = 'id';
   @Input()
   set apiResponse(value: ApiResponse) {
@@ -34,10 +35,10 @@ export class ListComponent implements OnDestroy {
   keys: string[] = [];
   paginationIterations: number[] = [];
   secondPaginationIterations: number[] = [];
-  subscriptions: Subscription[] = [];
   likedJokes: number[] = [];
 
   constructor(private stateService: StateService, private jokesService: JokesService) {
+    super();
     const userJokesSubscription$ = this.stateService.userJokes$.subscribe(userJokes => {
       this.userJokes = userJokes;
     });
@@ -50,7 +51,7 @@ export class ListComponent implements OnDestroy {
 
   likeJoke(id: number): void {
     if (!this.likedJokes.includes(id)) {
-      this.jokesService.addLike(id).subscribe(res => {
+      const addLikeSubscription$ = this.jokesService.addLike(id).subscribe(res => {
         this.likedJokes.push(id);
         localStorage.setItem('likedJokes', JSON.stringify(this.likedJokes));
         const joke = this.jokes.find(joke => joke.id === id);
@@ -58,8 +59,9 @@ export class ListComponent implements OnDestroy {
           joke.likes = (joke.likes ?? 0) + 1;
         }
       });
+      this.subscriptions.push(addLikeSubscription$);
     } else {
-      this.jokesService.dislike(id).subscribe(res => {
+      const dislikeSubscription$ = this.jokesService.dislike(id).subscribe(res => {
         this.likedJokes = this.likedJokes.filter(jokeId => jokeId !== id);
         localStorage.setItem('likedJokes', JSON.stringify(this.likedJokes));
         const joke = this.jokes.find(joke => joke.id === id);
@@ -67,6 +69,7 @@ export class ListComponent implements OnDestroy {
           joke.likes = (joke.likes ?? 0) - 1;
         }
       });
+      this.subscriptions.push(dislikeSubscription$);
     }
   }
 
@@ -102,9 +105,5 @@ export class ListComponent implements OnDestroy {
 
   get apiResponse(): ApiResponse {
     return this._apiResponse!;
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
