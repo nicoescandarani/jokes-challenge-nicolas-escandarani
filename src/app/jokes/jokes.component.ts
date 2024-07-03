@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription, catchError, skip } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
-import { ApiResponse, CopyJoke, Joke } from './interfaces/joke';
-import { RandomJokesAmount, DropdownItem, Sorting } from '../utils/utils';
+import { ApiResponse, CopyJoke, Joke, RandomJokesAmount } from './interfaces/joke';
+import { DropdownItem, Sorting } from '../utils/utils';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { FormGroup } from '@angular/forms';
 import { StateService } from '../services/state/state.service';

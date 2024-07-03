@@ -1,7 +1,8 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { RandomJokesAmount, DropdownItem, Sorting, SortingRule, typesBgColors } from 'src/app/utils/utils';
+import { DropdownItem, Sorting, SortingRule } from 'src/app/utils/utils';
 import { JokeType } from '../../enums/joke-type';
 import { TitleCasePipe } from '@angular/common';
+import { RandomJokesAmount, typesBgColors } from '../../interfaces/joke';
 
 type Menu = 'filters' | 'sort' | '';
 

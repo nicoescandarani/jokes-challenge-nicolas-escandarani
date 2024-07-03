@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JokeType } from '../../enums/joke-type';
-import { DropdownItem, typesBgColors } from 'src/app/utils/utils';
+import { DropdownItem } from 'src/app/utils/utils';
 import { TitleCasePipe } from '@angular/common';
+import { typesBgColors } from '../../interfaces/joke';
 
 @Component({
   selector: 'app-create-joke-dialog',
