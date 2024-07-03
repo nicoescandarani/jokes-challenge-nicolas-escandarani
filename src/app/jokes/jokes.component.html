@@ -1,6 +1,7 @@
 <div class="jokes">
   <!-- Header -->
   <app-jokes-header
+    *ngIf="!hideData"
     [sort]="sort"
     [amountOfItems]="apiResponse ? apiResponse.data.length : 0"
     (getRandomJokes)="getRandomJokes($event)"
@@ -12,11 +13,9 @@
   <!-- List -->
   <app-list
     [apiResponse]="apiResponse"
-    [likedJokes]="likedJokes"
     (getAllJokes)="getAllJokes()"
     (onPageChange)="onPageChange($event)"
     (copyJoke)="copyJoke($event)"
-    (likeJoke)="likeJoke($event)"
   ></app-list>
 </div>
 

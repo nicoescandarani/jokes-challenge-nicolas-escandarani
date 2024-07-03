@@ -1,5 +1,7 @@
 import { JokeType } from "../jokes/enums/joke-type";
 
+export type AlertTypeOptions = 'success' | 'error' | 'warning';
+
 export enum Sorting {
   id_asc = 'id_asc',
   id_desc = 'id_desc',

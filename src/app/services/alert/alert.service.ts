@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
-// import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { AlertTypeOptions } from 'src/app/utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
+  private alertSubject = new Subject<{ message: string; type: AlertTypeOptions }>();
+  alert$ = this.alertSubject.asObservable();
 
-  // constructor(private snackBar: MatSnackBar) {}
-
-  showError(message: string) {
-    console.log(message);
-
-    // this.snackBar.open(message, 'Close', {
-    //   duration: 3000, // Cierra después de 3000ms
-    //   horizontalPosition: 'right',
-    //   verticalPosition: 'top',
-    //   panelClass: ['error-snackbar'] // Puedes añadir clases CSS para estilizar
-    // });
+  showError(message: string, type: AlertTypeOptions = 'error') {
+    this.alertSubject.next({ message, type });
   }
 }

@@ -6,3 +6,4 @@
 </main>
 
 <ui-spinner *ngIf="isLoading$ | async"></ui-spinner>
+<ui-alert *ngIf="showAlert" [message]="alertMessage" [type]="alertType"></ui-alert>

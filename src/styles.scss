@@ -25,6 +25,10 @@ body {
   color: var(--pure-white);
 }
 
+svg {
+  fill: var(--pure-white);
+}
+
 :root {
   --pure-white: #FFFFFF;
   --bg-color: #44475d;
@@ -34,6 +38,9 @@ body {
   --orange: #ffb941;
   --blue: #b7baff;
   --white: #ffecff;
+  --success: #95ffb2;
+  --warning: #ffb941;
+  --error: #ff6b6b;
 
   --border-radius: 6px;
   --box-shadow: 4px 6px 8px 4px rgb(0 0 0 / 11%);

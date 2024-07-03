@@ -10,7 +10,9 @@ import {
   DialogComponent,
   SearchbarComponent,
   MenuComponent,
-  DropdownComponent
+  DropdownComponent,
+  ListItemComponent,
+  AlertComponent
 } from './index';
 
 @NgModule({
@@ -22,7 +24,9 @@ import {
     DialogComponent,
     SearchbarComponent,
     MenuComponent,
-    DropdownComponent
+    DropdownComponent,
+    ListItemComponent,
+    AlertComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,9 @@ import {
     DialogComponent,
     SearchbarComponent,
     MenuComponent,
-    DropdownComponent
+    DropdownComponent,
+    ListItemComponent,
+    AlertComponent
   ]
 })
 export class UiModule { }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription, skip } from 'rxjs';
+import { Observable, Subscription, catchError, skip } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
 import { ApiResponse, CopyJoke, Joke } from './interfaces/joke';
 import { RandomJokesAmount, DropdownItem, Sorting } from '../utils/utils';
@@ -17,7 +17,8 @@ export class JokesComponent {
   jokes: Joke[] = [];
   sort: DropdownItem = { value: Sorting.id_desc, label: 'Newest to Latest' };
   openNewJokeDialog: boolean = false;
-  likedJokes: number[] = [];
+  userJokes: number[] = [];
+  hideData: boolean = false;
 
   private subscriptions: Subscription[] = [];
   private jokesSubscription?: Subscription;
@@ -29,21 +30,31 @@ export class JokesComponent {
         this.searchJokes(searchText);
       });
     this.subscriptions.push(searchTextSubscription$);
+    const userJokesSubscription$ = this.stateService.userJokes$.subscribe(userJokes => {
+      this.userJokes = userJokes;
+    });
+    this.subscriptions.push(userJokesSubscription$);
   }
 
   ngOnInit() {
     this.getAllJokes(1, 10, this.sort.value as Sorting);
-    this.likedJokes = JSON.parse(localStorage.getItem('likedJokes') || '[]');
   }
 
   getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = Sorting.id_desc): void {
     this.checkSubscriptions();
     // Create a new subscription.
-    this.jokesSubscription = this.jokesService.getAllJokes(page, limit, sort).subscribe(res => {
-      this.apiResponse = res;
-      this.jokes = res.data;
-      this.stateService.searchTextSet = '';
-    });
+    this.jokesSubscription = this.jokesService.getAllJokes(page, limit, sort)
+      .pipe(
+        catchError(err => {
+          this.hideData = true;
+          return [];
+        })
+      )
+      .subscribe(res => {
+        this.apiResponse = res;
+        this.jokes = res.data;
+        this.stateService.searchTextSet = '';
+      });
   }
 
   onPageChange(page: number): void {
@@ -120,6 +131,7 @@ export class JokesComponent {
     };
     const createJokeSubscription$ = this.jokesService.createJoke(joke).subscribe(res => {
       this.jokes.unshift(res);
+      this.stateService.addUserJoke(res.id!!);
     });
     this.subscriptions.push(createJokeSubscription$);
     this.openNewJokeDialog = false;
@@ -127,28 +139,6 @@ export class JokesComponent {
 
   cancelNewJoke(): void {
     this.openNewJokeDialog = false;
-  }
-
-  likeJoke(id: number): void {
-    if (!this.likedJokes.includes(id)) {
-      this.jokesService.addLike(id).subscribe(res => {
-        this.likedJokes.push(id);
-        localStorage.setItem('likedJokes', JSON.stringify(this.likedJokes));
-        const joke = this.jokes.find(joke => joke.id === id);
-        if (joke) {
-          joke.likes = (joke.likes ?? 0) + 1;
-        }
-      });
-    } else {
-      this.jokesService.dislike(id).subscribe(res => {
-        this.likedJokes = this.likedJokes.filter(jokeId => jokeId !== id);
-        localStorage.setItem('likedJokes', JSON.stringify(this.likedJokes));
-        const joke = this.jokes.find(joke => joke.id === id);
-        if (joke) {
-          joke.likes = (joke.likes ?? 0) - 1;
-        }
-      });
-    }
   }
 
   ngOnDestroy() {
