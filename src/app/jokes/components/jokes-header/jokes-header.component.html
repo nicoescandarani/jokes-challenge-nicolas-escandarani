@@ -1,0 +1,77 @@
+<div class="header">
+  <!-- Options -->
+  <div class="header__options">
+    <div class="header__button-wrapper">
+      <ui-button [title]="'Create a Joke'" [color]="'cta'" (onClick)="createJokeEmit()">Create a Joke</ui-button>
+    </div>
+  </div>
+  <div *ngIf="amountOfItems > 0" class="header__filters">
+  <!-- Sorting -->
+    <div class="header__filters__options">
+      <ui-button [title]="'Open Sorting Options'" (onClick)="openMenu('sort')">
+        <div class="header__filters__button-content">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"/>
+          </svg>
+          <span>Sort</span>
+        </div>
+      </ui-button>
+      <div *ngIf="openedMenu === 'sort'" class="header__filters__options__menu-wrapper">
+        <ui-menu>
+          <!-- By Date -->
+          <div class="header__filters__options__menu-wrapper__dropdown-wrapper">
+            <h3>By Date</h3>
+            <ui-dropdown
+              [items]="idSortingRules"
+              [selectedItem]="sort"
+              (selectItem)="onSortChange($event)"
+            ></ui-dropdown>
+          </div>
+          <!-- By Likes -->
+          <h3>By Likes</h3>
+          <div class="header__filters__options__menu-wrapper__dropdown-wrapper">
+            <ui-dropdown
+              [items]="likesSortingRules"
+              [selectedItem]="sort"
+              (selectItem)="onSortChange($event)"
+            ></ui-dropdown>
+          </div>
+        </ui-menu>
+      </div>
+    </div>
+    <!-- Filters -->
+    <div class="header__filters__options">
+      <ui-button [title]="'Open Filters'" (onClick)="openMenu('filters')">
+        <div class="header__filters__button-content">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+            <path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/>
+          </svg>
+          <span>Filters</span>
+        </div>
+      </ui-button>
+      <div *ngIf="openedMenu === 'filters'" class="header__filters__options__menu-wrapper">
+        <ui-menu>
+          <div class="header__button-wrapper">
+            <ui-button [title]="'Get All Jokes'" [color]="'secondary'" (onClick)="getAllJokesEmit()">All Jokes</ui-button>
+          </div>
+          <div class="header__button-wrapper">
+            <ui-button [title]="'Get a Random Joke'" [color]="'secondary'" (onClick)="getRandomJokeEmit(randomJokesAmount.one)">Random Joke</ui-button>
+          </div>
+          <div class="header__button-wrapper">
+            <ui-button [title]="'Get 10 Random Jokes'" [color]="'secondary'" (onClick)="getRandomJokeEmit(randomJokesAmount.ten)">10 Random Jokes</ui-button>
+          </div>
+          <!-- By Type -->
+          <div class="header__filters__options__menu-wrapper__dropdown-wrapper">
+            <ui-dropdown
+              [items]="typesSortingRules"
+              [selectedItem]="sort"
+              [bgColors]="typesBgColors"
+              [label]="'Select a Type'"
+              (selectItem)="onTypeSortChange($event)"
+            ></ui-dropdown>
+          </div>
+        </ui-menu>
+      </div>
+    </div>
+  </div>
+</div>

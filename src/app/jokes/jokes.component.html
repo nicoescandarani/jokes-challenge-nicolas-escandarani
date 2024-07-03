@@ -1,0 +1,28 @@
+<div class="jokes">
+  <!-- Header -->
+  <app-jokes-header
+    *ngIf="!hideData"
+    [sort]="sort"
+    [amountOfItems]="apiResponse ? apiResponse.data.length : 0"
+    (getRandomJokes)="getRandomJokes($event)"
+    (getAllJokes)="getAllJokes()"
+    (getJokesByType)="getJokesByType($event)"
+    (createJoke)="createJoke()"
+    (sortChange)="onSortChange($event)"
+  ></app-jokes-header>
+  <!-- List -->
+  <app-list
+    [apiResponse]="apiResponse"
+    (getAllJokes)="getAllJokes()"
+    (onPageChange)="onPageChange($event)"
+    (copyJoke)="copyJoke($event)"
+  ></app-list>
+</div>
+
+<!-- New Joke Dialog -->
+<div *ngIf="openNewJokeDialog" class="create-joke-dialog-wrapper">
+  <app-create-joke-dialog
+    (cancel)="cancelNewJoke()"
+    (save)="saveNewJoke($event)"
+  ></app-create-joke-dialog>
+</div>

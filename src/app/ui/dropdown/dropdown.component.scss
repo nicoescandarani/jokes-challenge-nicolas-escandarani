@@ -1,0 +1,32 @@
+.dropdown {
+  position: relative;
+  border-radius: var(--border-radius);
+
+  &__toggle {
+    &__content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  &__content {
+    position: absolute;
+    top: calc(100% + 4px);
+    padding: 12px 8px;
+    background-color: var(--bg-color);
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    z-index: 1;
+
+    &__item {
+      margin-bottom: 16px;
+      font-size: 10px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

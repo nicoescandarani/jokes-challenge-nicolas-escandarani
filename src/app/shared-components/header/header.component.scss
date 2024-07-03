@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+
+  &__searchbar-wrapper {
+    max-width: 240px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__searchbar-wrapper {
+      max-width: 100%;
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<button
+  [type]="type"
+  [ngClass]="
+    {
+      'button--secondary': color === 'secondary',
+      'button--tertiary': color === 'tertiary',
+      'button--cta': color === 'cta',
+      'button--empty': color === 'empty',
+      'button--centered': centered
+    }
+  "
+  [ngStyle]="{'background-color': backgroundColor || '', 'color': textColor || '', 'font-weight': textColor ? 600 : ''}"
+  [disabled]="disabled"
+  [title]="title"
+  (click)="onClickEmit()"
+  class="button"
+>
+  <ng-content></ng-content>
+</button>
