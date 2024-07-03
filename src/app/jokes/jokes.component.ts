@@ -26,7 +26,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   constructor(private jokesService: JokesService, private clipboard: Clipboard, private stateService: StateService) {
     super();
     const searchTextSubscription$ = this.stateService.searchText$
-      .pipe(skip(1)) // Ignore the first value emitted by the observable.
+      .pipe(skip(2)) // Skip the first two emissions.
       .subscribe(searchText => {
         this.searchJokes(searchText);
       });
