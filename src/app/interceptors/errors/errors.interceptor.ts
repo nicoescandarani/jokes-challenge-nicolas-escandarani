@@ -9,7 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AlertService } from '../../services/alert/alert.service';
-import { AlertTypeOptions } from 'src/app/utils/utils';
+import { AlertTypeOptions } from 'src/app/utils/types/types';
 
 @Injectable()
 export class ErrorsInterceptor implements HttpInterceptor {

@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { Subscription, catchError, skip } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
-import { ApiResponse, CopyJoke, Joke, RandomJokesAmount } from './interfaces/joke';
-import { DropdownItem, Sorting } from '../utils/utils';
+import { ApiResponse, CopyJoke, Joke } from './interfaces/joke';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { FormGroup } from '@angular/forms';
 import { StateService } from '../services/state/state.service';
 import { AutoUnsubscribeComponent } from '../utils/auto-unsubscribe.component';
+import { RandomJokesAmount } from './enums/joke';
+import { DropdownItem } from '../utils/interfaces/interfaces';
+import { Sorting } from '../utils/enums/enums';
 
 @Component({
   selector: 'app-jokes',

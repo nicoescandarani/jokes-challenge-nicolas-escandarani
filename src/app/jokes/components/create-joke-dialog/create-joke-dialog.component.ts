@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { JokeType } from '../../enums/joke-type';
-import { DropdownItem } from 'src/app/utils/utils';
+import { JokeType } from '../../enums/joke';
 import { TitleCasePipe } from '@angular/common';
-import { typesBgColors } from '../../interfaces/joke';
+import { TypesBgColors } from '../../types/types';
+import { DropdownItem } from 'src/app/utils/interfaces/interfaces';
 
 @Component({
   selector: 'app-create-joke-dialog',
@@ -16,7 +16,7 @@ export class CreateJokeDialogComponent {
   jokeTypes = JokeType;
   jokeTypesForDropdown: DropdownItem[] = [];
   selectedJokeType: DropdownItem = {} as DropdownItem;
-  typesBgColors: Map<string, string> = typesBgColors;
+  typesBgColors: Map<string, string> = TypesBgColors;
 
   @Output() cancel: EventEmitter<void> = new EventEmitter<void>();
   @Output() save: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();

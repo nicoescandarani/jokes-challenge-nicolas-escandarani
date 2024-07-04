@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AlertTypeOptions } from 'src/app/utils/utils';
+import { AlertTypeOptions } from 'src/app/utils/types/types';
 
 @Component({
   selector: 'ui-alert',

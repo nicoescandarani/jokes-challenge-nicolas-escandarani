@@ -1,4 +1,4 @@
-import { JokeType } from "../enums/joke-type";
+import { JokeType } from "../enums/joke";
 
 export interface Joke {
   id?: number;
@@ -20,15 +20,3 @@ export interface CopyJoke {
   setup: string;
   punchline: string;
 }
-
-export enum RandomJokesAmount {
-  one = 1,
-  ten = 10
-}
-
-export const typesBgColors: Map<string, string> = new Map([
-  [JokeType.general, 'var(--blue)'],
-  [JokeType.programming, 'var(--green)'],
-  [JokeType.knock_knock, 'var(--orange)'],
-  [JokeType.dad, 'var(--white)']
-]);
