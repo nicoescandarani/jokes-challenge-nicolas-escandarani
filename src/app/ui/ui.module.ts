@@ -11,7 +11,8 @@ import {
   MenuComponent,
   DropdownComponent,
   ListItemComponent,
-  AlertComponent
+  AlertComponent,
+  IconComponent
 } from './index';
 
 @NgModule({
@@ -24,7 +25,8 @@ import {
     MenuComponent,
     DropdownComponent,
     ListItemComponent,
-    AlertComponent
+    AlertComponent,
+    IconComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import {
     MenuComponent,
     DropdownComponent,
     ListItemComponent,
-    AlertComponent
+    AlertComponent,
+    IconComponent
   ]
 })
 export class UiModule { }

@@ -10,9 +10,11 @@
     <div class="header__filters__options">
       <ui-button [title]="'Open Sorting Options'" (onClick)="openMenu('sort')">
         <div class="header__filters__button-content">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-            <path d="M320-440v-287L217-624l-57-56 200-200 200 200-57 56-103-103v287h-80ZM600-80 400-280l57-56 103 103v-287h80v287l103-103 57 56L600-80Z"/>
-          </svg>
+          <ui-icon
+            [name]="'sort'"
+            [size]="24"
+            style="fill: var(--pure-white);"
+          ></ui-icon>
           <span>Sort</span>
         </div>
       </ui-button>
@@ -43,9 +45,11 @@
     <div class="header__filters__options">
       <ui-button [title]="'Open Filters'" (onClick)="openMenu('filters')">
         <div class="header__filters__button-content">
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-            <path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/>
-          </svg>
+          <ui-icon
+            [name]="'filters'"
+            [size]="24"
+            style="fill: var(--pure-white);"
+          ></ui-icon>
           <span>Filters</span>
         </div>
       </ui-button>

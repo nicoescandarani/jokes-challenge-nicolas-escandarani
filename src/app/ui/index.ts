@@ -7,3 +7,4 @@ export * from './menu/menu.component';
 export * from './dropdown/dropdown.component';
 export * from './list-item/list-item.component';
 export * from './alert/alert.component';
+export * from './icon/icon.component';
