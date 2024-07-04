@@ -14,7 +14,7 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private spinnerService: SpinnerService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let timeout = setTimeout(() => this.spinnerService.show(), 200); // Only show spinner for long requests.
+    let timeout = setTimeout(() => this.spinnerService.show(), 300); // Only show spinner for long requests.
 
     return next.handle(request).pipe(
       finalize(() => {

@@ -4,29 +4,27 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {
   ButtonComponent,
-  InputComponent,
   SpinnerComponent,
   CardComponent,
   DialogComponent,
   SearchbarComponent,
   MenuComponent,
   DropdownComponent,
-  ListItemComponent,
-  AlertComponent
+  AlertComponent,
+  IconComponent
 } from './index';
 
 @NgModule({
   declarations: [
     ButtonComponent,
-    InputComponent,
     SpinnerComponent,
     CardComponent,
     DialogComponent,
     SearchbarComponent,
     MenuComponent,
     DropdownComponent,
-    ListItemComponent,
-    AlertComponent
+    AlertComponent,
+    IconComponent
   ],
   imports: [
     CommonModule,
@@ -35,15 +33,14 @@ import {
   ],
   exports: [
     ButtonComponent,
-    InputComponent,
     SpinnerComponent,
     CardComponent,
     DialogComponent,
     SearchbarComponent,
     MenuComponent,
     DropdownComponent,
-    ListItemComponent,
-    AlertComponent
+    AlertComponent,
+    IconComponent
   ]
 })
 export class UiModule { }

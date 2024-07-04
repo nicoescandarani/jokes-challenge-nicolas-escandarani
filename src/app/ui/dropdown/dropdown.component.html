@@ -2,9 +2,11 @@
   <ui-button [title]="'Open Dropdown'" [color]="'secondary'" (onClick)="toggleMenu()" class="dropdown__toggle">
     <div class="dropdown__toggle__content">
       <span>{{ selectedItem && selectedItemExistsInItems ? selectedItem.label : label }}</span>
-      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-        <path d="M480-360 280-560h400L480-360Z"/>
-      </svg>
+      <ui-icon
+        [name]="'arrow'"
+        [size]="24"
+        style="fill: var(--pure-white);"
+      ></ui-icon>
     </div>
   </ui-button>
   <div *ngIf="menuOpen" class="dropdown__content">

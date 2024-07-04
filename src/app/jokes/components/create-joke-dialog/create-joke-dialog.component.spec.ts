@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateJokeDialogComponent } from './create-joke-dialog.component';
+import { UiModule } from 'src/app/ui/ui.module';
 
 describe('CreateJokeDialogComponent', () => {
   let component: CreateJokeDialogComponent;
@@ -8,7 +9,7 @@ describe('CreateJokeDialogComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateJokeDialogComponent]
+      imports: [UiModule]
     });
     fixture = TestBed.createComponent(CreateJokeDialogComponent);
     component = fixture.componentInstance;

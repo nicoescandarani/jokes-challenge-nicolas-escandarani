@@ -10,6 +10,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CreateJokeDialogComponent } from './components/create-joke-dialog/create-joke-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JokesHeaderComponent } from './components/jokes-header/jokes-header.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { JokesHeaderComponent } from './components/jokes-header/jokes-header.com
     JokesComponent,
     ListComponent,
     CreateJokeDialogComponent,
-    JokesHeaderComponent
+    JokesHeaderComponent,
+    ListItemComponent
   ],
   imports: [
     CommonModule,

@@ -4,6 +4,7 @@ import { StateService } from 'src/app/services/state/state.service';
 import { Subscription } from 'rxjs';
 import { JokesService } from '../../services/jokes/jokes.service';
 import { AutoUnsubscribeComponent } from 'src/app/utils/auto-unsubscribe.component';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-list',
@@ -28,7 +29,6 @@ export class ListComponent extends AutoUnsubscribeComponent implements OnDestroy
   @Output() deleteMultipleJokes: EventEmitter<number[]> = new EventEmitter<number[]>();
   @Output() getMoreJokes: EventEmitter<number> = new EventEmitter<number>();
   @Output() onPageChange: EventEmitter<number> = new EventEmitter<number>();
-  @Output() copyJoke: EventEmitter<CopyJoke> = new EventEmitter<CopyJoke>();
 
   jokes: Joke[] = [];
   private _apiResponse?: ApiResponse;
@@ -37,7 +37,7 @@ export class ListComponent extends AutoUnsubscribeComponent implements OnDestroy
   secondPaginationIterations: number[] = [];
   likedJokes: number[] = [];
 
-  constructor(private stateService: StateService, private jokesService: JokesService) {
+  constructor(private stateService: StateService, private jokesService: JokesService, private clipboard: Clipboard) {
     super();
     const userJokesSubscription$ = this.stateService.userJokes$.subscribe(userJokes => {
       this.userJokes = userJokes;
@@ -47,6 +47,10 @@ export class ListComponent extends AutoUnsubscribeComponent implements OnDestroy
 
   ngOnInit() {
     this.likedJokes = JSON.parse(localStorage.getItem('likedJokes') || '[]');
+  }
+
+  copyJoke(copyJoke: CopyJoke): void {
+    this.clipboard.copy(`Setup: ${copyJoke.setup}\nPunchline: ${copyJoke.punchline}`);
   }
 
   likeJoke(id: number): void {
@@ -93,10 +97,6 @@ export class ListComponent extends AutoUnsubscribeComponent implements OnDestroy
 
   onPaginationChange(event: any) {
     this.onPageChange.emit(event);
-  }
-
-  copyJokeEmit(setup: string, punchline: string): void {
-    this.copyJoke.emit({setup, punchline});
   }
 
   getAllJokesEmit(): void {

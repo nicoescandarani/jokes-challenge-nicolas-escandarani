@@ -1,8 +1,9 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { DropdownItem, Sorting, SortingRule } from 'src/app/utils/utils';
-import { JokeType } from '../../enums/joke-type';
+import { JokeType, RandomJokesAmount } from '../../enums/joke';
 import { TitleCasePipe } from '@angular/common';
-import { RandomJokesAmount, typesBgColors } from '../../interfaces/joke';
+import { TypesBgColors } from '../../types/types';
+import { DropdownItem, SortingRule } from 'src/app/utils/interfaces/interfaces';
+import { Sorting } from 'src/app/utils/enums/enums';
 
 type Menu = 'filters' | 'sort' | '';
 
@@ -17,7 +18,7 @@ export class JokesHeaderComponent {
 
   randomJokesAmount = RandomJokesAmount;
   jokeTypes = JokeType;
-  typesBgColors: Map<string, string> = typesBgColors;
+  typesBgColors: Map<string, string> = TypesBgColors;
 
   idSortingRules: SortingRule[] = [
     { value: Sorting.id_desc, label: 'Newest to Latest' },

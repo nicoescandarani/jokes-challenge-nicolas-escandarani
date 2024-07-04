@@ -1,0 +1,72 @@
+<div class="item">
+  <div class="item__header">
+    <div class="item__header__options">
+      <span *ngIf="userJoke">(Mine)</span>
+    </div>
+    <div class="item__header__options">
+      <button title="Copy joke" (click)="copyJokeEmit(joke.setup, joke.punchline)" class="item__header__copy-button">
+        <ui-icon
+          [name]="'copy'"
+          [size]="24"
+          style="fill: var(--pure-white);"
+        ></ui-icon>
+      </button>
+      <div *ngIf="userJoke" class="item__header__mini-menu-wrapper">
+        <ui-button (onClick)="openMiniMenu()" [color]="'empty'">
+          <ui-icon
+            [name]="'menu-toggle'"
+            [size]="24"
+            style="fill: var(--pure-white);"
+          ></ui-icon>
+        </ui-button>
+        <div *ngIf="miniMenuOpened" class="item__header__mini-menu">
+          <div class="item__header__mini-menu__button-wrapper">
+            <ui-button
+              [color]="'empty'"
+              [title]="'Delete Joke'"
+              (onClick)="deleteJokeEmit(joke.id!!)"
+            >
+              <ui-icon
+                [name]="'delete'"
+                [size]="24"
+                style="fill: var(--pure-white);"
+              ></ui-icon>
+            </ui-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item__joke">
+    <p>- {{ joke.setup }}</p>
+    <p>- {{ joke.punchline }}</p>
+  </div>
+  <div class="item__joke__footer">
+    <span [ngClass]="'item__joke__footer__type--' + joke.type" class="item__joke__footer__type">{{ joke.type | titlecase }}</span>
+    <div class="item__joke__like-button">
+      <ui-button
+        [color]="'empty'"
+        [title]="'Like Joke'"
+        (onClick)="likeJokeEmit(joke.id!!)"
+      >
+        <div class="item__joke__like-button__content">
+          <span>{{ joke.likes || 0 }}</span>
+          <ng-container *ngIf="!likedJoke">
+            <ui-icon
+              [name]="'like-outline'"
+              [size]="24"
+              style="fill: var(--pure-white);"
+            ></ui-icon>
+          </ng-container>
+          <ng-container *ngIf="likedJoke">
+            <ui-icon
+              [name]="'like-fill'"
+              [size]="24"
+              style="fill: var(--pure-white);"
+            ></ui-icon>
+          </ng-container>
+        </div>
+      </ui-button>
+    </div>
+  </div>
+</div>

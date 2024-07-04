@@ -1,12 +1,13 @@
 <div class="list">
   <div class="list__item-wrapper" *ngFor="let joke of jokes | paginate: { itemsPerPage: apiResponse?.perPage, currentPage: apiResponse?.currentPage, totalItems: apiResponse?.totalItems }; let i = index">
-    <ui-list-item
+    <app-list-item
       [joke]="joke"
       [likedJoke]="likedJokes.includes(joke.id!!)"
       [userJoke]="userJokes.includes(joke.id!!)"
+      (copyJoke)="copyJoke($event)"
       (likeJoke)="likeJoke($event)"
       (deleteJoke)="deleteJoke($event)"
-    ></ui-list-item>
+    ></app-list-item>
   </div>
 </div>
 
