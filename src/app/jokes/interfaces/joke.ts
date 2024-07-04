@@ -2,8 +2,8 @@ import { JokeType } from "../enums/joke-type";
 
 export interface Joke {
   id?: number;
-  type: string;
-  setup: JokeType;
+  type: JokeType;
+  setup: string;
   punchline: string;
   likes?: number;
 }

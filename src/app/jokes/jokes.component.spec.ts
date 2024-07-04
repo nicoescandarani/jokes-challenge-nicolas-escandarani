@@ -49,6 +49,20 @@ describe('JokesComponent', () => {
     stateService = TestBed.inject(StateService);
     clipboard = TestBed.inject(Clipboard) as jasmine.SpyObj<Clipboard>;
 
+    // Mock the return values of the service methods
+    const mockResponse: ApiResponse = {
+      currentPage: 1,
+      perPage: 10,
+      totalItems: 0,
+      totalPages: 1,
+      data: []
+    };
+    jokesService.getAllJokes.and.returnValue(of(mockResponse));
+    jokesService.getRandomJoke.and.returnValue(of(mockResponse));
+    jokesService.getTenRandomJokes.and.returnValue(of(mockResponse));
+    jokesService.getJokesByType.and.returnValue(of(mockResponse));
+    jokesService.createJoke.and.returnValue(of(mockResponse.data[0]));
+
     fixture.detectChanges();
   });
 
@@ -59,28 +73,12 @@ describe('JokesComponent', () => {
 
   // Test to verify the getAllJokes method.
   it('should get all jokes on init', () => {
-    const mockResponse: ApiResponse = {
-      currentPage: 1,
-      perPage: 10,
-      totalItems: 0,
-      totalPages: 1,
-      data: []
-    };
-    jokesService.getAllJokes.and.returnValue(of(mockResponse));
     component.ngOnInit();
     expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc');
   });
 
   // Test to verify the search functionality.
   it('should search jokes based on search text', () => {
-    const mockResponse: ApiResponse = {
-      currentPage: 1,
-      perPage: 10,
-      totalItems: 0,
-      totalPages: 1,
-      data: []
-    };
-    jokesService.getAllJokes.and.returnValue(of(mockResponse));
     component.searchJokes('test');
     expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc', 'test');
   });

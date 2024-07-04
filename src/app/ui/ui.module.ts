@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {
   ButtonComponent,
-  InputComponent,
   SpinnerComponent,
   CardComponent,
   DialogComponent,
@@ -18,7 +17,6 @@ import {
 @NgModule({
   declarations: [
     ButtonComponent,
-    InputComponent,
     SpinnerComponent,
     CardComponent,
     DialogComponent,
@@ -35,7 +33,6 @@ import {
   ],
   exports: [
     ButtonComponent,
-    InputComponent,
     SpinnerComponent,
     CardComponent,
     DialogComponent,

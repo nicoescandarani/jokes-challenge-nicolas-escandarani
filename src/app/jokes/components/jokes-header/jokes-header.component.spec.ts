@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JokesHeaderComponent } from './jokes-header.component';
+import { UiModule } from 'src/app/ui/ui.module';
 
 describe('JokesHeaderComponent', () => {
   let component: JokesHeaderComponent;
@@ -8,7 +9,8 @@ describe('JokesHeaderComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [JokesHeaderComponent]
+      declarations: [JokesHeaderComponent],
+      imports: [UiModule]
     });
     fixture = TestBed.createComponent(JokesHeaderComponent);
     component = fixture.componentInstance;
