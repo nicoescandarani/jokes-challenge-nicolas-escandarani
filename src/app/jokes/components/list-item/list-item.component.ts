@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from
 import { CopyJoke, Joke } from 'src/app/jokes/interfaces/joke';
 
 @Component({
-  selector: 'ui-list-item',
+  selector: 'app-list-item',
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss']
 })

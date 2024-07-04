@@ -10,7 +10,6 @@ import {
   SearchbarComponent,
   MenuComponent,
   DropdownComponent,
-  ListItemComponent,
   AlertComponent,
   IconComponent
 } from './index';
@@ -24,7 +23,6 @@ import {
     SearchbarComponent,
     MenuComponent,
     DropdownComponent,
-    ListItemComponent,
     AlertComponent,
     IconComponent
   ],
@@ -41,7 +39,6 @@ import {
     SearchbarComponent,
     MenuComponent,
     DropdownComponent,
-    ListItemComponent,
     AlertComponent,
     IconComponent
   ]

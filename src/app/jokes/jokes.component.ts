@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Subscription, catchError, skip } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
 import { ApiResponse, CopyJoke, Joke } from './interfaces/joke';
-import { Clipboard } from '@angular/cdk/clipboard';
 import { FormGroup } from '@angular/forms';
 import { StateService } from '../services/state/state.service';
 import { AutoUnsubscribeComponent } from '../utils/auto-unsubscribe.component';
@@ -26,7 +25,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
 
   private jokesSubscription?: Subscription;
 
-  constructor(private jokesService: JokesService, private clipboard: Clipboard, private stateService: StateService) {
+  constructor(private jokesService: JokesService, private stateService: StateService) {
     super();
     const searchTextSubscription$ = this.stateService.searchText$
       .pipe(skip(2)) // Skip the first two emissions.
@@ -128,10 +127,6 @@ export class JokesComponent extends AutoUnsubscribeComponent {
     if (this.jokesSubscription) {
       this.jokesSubscription.unsubscribe();
     }
-  }
-
-  copyJoke(copyJoke: CopyJoke): void {
-    this.clipboard.copy(`Setup: ${copyJoke.setup}\nPunchline: ${copyJoke.punchline}`);
   }
 
   createJoke(): void {
