@@ -22,6 +22,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   openNewJokeDialog: boolean = false;
   userJokes: number[] = [];
   hideData: boolean = false;
+  private suppressSearch: boolean = false;
 
   private jokesSubscription?: Subscription;
 
@@ -30,7 +31,10 @@ export class JokesComponent extends AutoUnsubscribeComponent {
     const searchTextSubscription$ = this.stateService.searchText$
       .pipe(skip(2)) // Skip the first two emissions.
       .subscribe(searchText => {
-        this.searchJokes(searchText);
+        if (!this.suppressSearch) {
+          this.searchJokes(searchText);
+        }
+        this.suppressSearch = false;
       });
     this.subscriptions.push(searchTextSubscription$);
     const userJokesSubscription$ = this.stateService.userJokes$.subscribe(userJokes => {
@@ -44,6 +48,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   }
 
   getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = Sorting.id_desc): void {
+    this.suppressSearch = true;
     this.checkSubscriptions();
     // Create a new subscription.
     this.jokesSubscription = this.jokesService.getAllJokes(page, limit, sort)
@@ -57,29 +62,35 @@ export class JokesComponent extends AutoUnsubscribeComponent {
         this.apiResponse = res;
         this.jokes = res.data;
         this.stateService.searchTextSet = '';
+        this.suppressSearch = false; // Reset the flag after the data is fetched.
       });
   }
 
   onPageChange(page: number): void {
+    this.suppressSearch = true;
     this.getAllJokes(page, 10, this.sort.value as Sorting);
   }
 
   onSortChange(sort: DropdownItem): void {
-    this.sort  = sort;
+    this.suppressSearch = true;
+    this.sort = sort;
     this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   orderById(): void {
+    this.suppressSearch = true;
     this.sort.value = this.sort.value === Sorting.id_asc ? Sorting.id_desc : Sorting.id_asc;
     this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   orderByLikes(): void {
+    this.suppressSearch = true;
     this.sort.value = this.sort.value === Sorting.likes_asc ? Sorting.likes_desc : Sorting.likes_asc;
     this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   getRandomJokes(amount: RandomJokesAmount): void {
+    this.suppressSearch = true;
     this.checkSubscriptions();
     // Create a new subscription.
     if (amount === RandomJokesAmount.one) {
@@ -96,6 +107,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   }
 
   getJokesByType(type: DropdownItem): void {
+    this.suppressSearch = true;
     this.checkSubscriptions();
     // Create a new subscription.
     this.jokesSubscription = this.jokesService.getJokesByType(type.value, 10).subscribe(res => {
