@@ -1,5 +1,21 @@
 # Jokes Challenge by Nicolas Escandarani
 
+## Setup and Development Server
+
+Frontend:
+
+- Run `npm install` to install the dependencies.
+- Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+Backend:
+
+- Run `npm install` to install the dependencies.
+- Run `npm run dev` in the backend project to start that server and be able to use the application.
+
+## Running unit tests
+
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
 ## Walkthrough
 
 ### Frontend
@@ -104,18 +120,9 @@
 >- Added `paginateAndSort` function.
 >- Added the `saveJokes` function to save jokes to the `index.json` file.
 
-## Setup and Development Server
+## Possible Future Improvements
 
-Frontend:
-
-- Run `npm install` to install the dependencies.
-- Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-Backend:
-
-- Run `npm install` to install the dependencies.
-- Run `npm run dev` in the backend project to start that server and be able to use the application.
-
-## Running unit tests
-
-Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- `Add users` as the likes and user's own jokes are stores in the localstorage. While being a simple application, that works fine, but growing a bit more, it would be better to have the backend to store that information.
+- `Migrate the UI Module to its own library`. This would make the application more modular and reusable. Also, that library could be imported to other projects.
+- `Add a 'My Jokes' view and a 'My Jokes' filter`. This would allow the user to see only the jokes that they have created. That would go alongside with the user's feature.
+- `Add the possibility to paginate with filters and sorting`.
