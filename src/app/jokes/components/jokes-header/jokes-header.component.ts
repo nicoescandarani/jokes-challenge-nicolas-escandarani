@@ -14,7 +14,6 @@ type Menu = 'filters' | 'sort' | '';
   providers: [TitleCasePipe]
 })
 export class JokesHeaderComponent {
-  constructor(private eRef: ElementRef, private titleCasePipe: TitleCasePipe) { }
 
   randomJokesAmount = RandomJokesAmount;
   jokeTypes = JokeType;
@@ -40,6 +39,8 @@ export class JokesHeaderComponent {
 
   @Input() sort: DropdownItem = this.idSortingRules[0];
   @Input() amountOfItems: number = 0;
+
+  constructor(private eRef: ElementRef, private titleCasePipe: TitleCasePipe) { }
 
   ngOnInit(): void {
     this.initTypesSortingRules();

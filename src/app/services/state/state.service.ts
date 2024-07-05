@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Joke } from 'src/app/jokes/interfaces/joke';
 
 @Injectable({
   providedIn: 'root'

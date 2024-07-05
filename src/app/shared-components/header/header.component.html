@@ -5,6 +5,9 @@
     </a>
   </div>
   <div class="header__searchbar-wrapper">
-    <ui-searchbar></ui-searchbar>
+    <ui-searchbar
+      [searchText]="searchText"
+      (search)="onSearchChange($event)"
+    ></ui-searchbar>
   </div>
 </div>
