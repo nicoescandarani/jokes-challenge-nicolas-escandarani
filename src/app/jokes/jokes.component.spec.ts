@@ -3,7 +3,7 @@ import { JokesComponent } from './jokes.component';
 import { JokesService } from './services/jokes/jokes.service';
 import { StateService } from '../services/state/state.service';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { of, BehaviorSubject, Subscription } from 'rxjs';
+import { of, BehaviorSubject } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ApiResponse } from './interfaces/joke';
@@ -73,6 +73,6 @@ describe('JokesComponent', () => {
   // Test to verify the getAllJokes method.
   it('should get all jokes on init', () => {
     component.ngOnInit();
-    expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc');
+    expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc', '', undefined);
   });
 });
