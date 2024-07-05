@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription, catchError, skip } from 'rxjs';
+import { Subscription, catchError, skip, take } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
 import { ApiResponse, CopyJoke, Joke } from './interfaces/joke';
 import { FormGroup } from '@angular/forms';
@@ -59,6 +59,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
     // Create a new subscription.
     this.jokesSubscription = this.jokesService.getAllJokes(page, limit, sort, this.searchText || '', this.selectedJokeType.value)
       .pipe(
+        take(1), // Take only the first emission and complete
         catchError(err => {
           this.hideData = true;
           return [];
@@ -96,8 +97,6 @@ export class JokesComponent extends AutoUnsubscribeComponent {
 
   getRandomJokes(amount: RandomJokesAmount): void {
     this.suppressSearch = true;
-    this.checkSubscriptions();
-    // Create a new subscription.
     if (amount === RandomJokesAmount.one) {
       this.jokesSubscription = this.jokesService.getRandomJoke(this.searchText).subscribe(res => {
         this.apiResponse = res;
@@ -149,11 +148,12 @@ export class JokesComponent extends AutoUnsubscribeComponent {
       punchline: fg.get('punchline')?.value,
       type: fg.get('type')?.value
     };
-    const createJokeSubscription$ = this.jokesService.createJoke(joke).subscribe(res => {
-      this.jokes.unshift(res);
-      this.stateService.addUserJoke(res.id!!);
-    });
-    this.subscriptions.push(createJokeSubscription$);
+    this.jokesService.createJoke(joke)
+      .pipe(take(1)) // Take only the first emission and complete
+      .subscribe(res => {
+        this.jokes.unshift(res);
+        this.stateService.addUserJoke(res.id!!);
+      });
     this.openNewJokeDialog = false;
   }
 
