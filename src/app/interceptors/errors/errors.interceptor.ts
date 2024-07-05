@@ -19,25 +19,8 @@ export class ErrorsInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        let errorMsg = 'An unknown error occurred!';
+        let errorMsg = error.error.message;
         let errorType: AlertTypeOptions = 'error';
-
-        if (error.error instanceof ErrorEvent) {
-          // Client-side error.
-          errorMsg = `Error: ${error.error.message}`;
-        } else {
-          // Server-side error.
-          switch (error.status) {
-            case 404:
-              errorMsg = 'Error 404: Resource not found';
-              errorType = 'error';
-              break;
-            default:
-              errorMsg = `Error Status: ${error.status}\nMessage: ${error.message}`;
-              errorType = 'error';
-          }
-        }
-
         this.alertService.showError(errorMsg, errorType);
         return throwError(error);
       })

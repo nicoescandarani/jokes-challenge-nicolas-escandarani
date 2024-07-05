@@ -19,6 +19,7 @@ export class JokesHeaderComponent {
   randomJokesAmount = RandomJokesAmount;
   jokeTypes = JokeType;
   typesBgColors: Map<string, string> = TypesBgColors;
+  selectedJokeType: DropdownItem = {} as DropdownItem;
 
   idSortingRules: SortingRule[] = [
     { value: Sorting.id_desc, label: 'Newest to Latest' },
@@ -65,6 +66,7 @@ export class JokesHeaderComponent {
 
   onTypeSortChange(type: DropdownItem): void {
     this.getJokesByType.emit(type);
+    this.selectedJokeType = type;
     this.openedMenu = '';
   }
 

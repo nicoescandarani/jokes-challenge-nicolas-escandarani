@@ -12,7 +12,7 @@ export class JokesService {
 
   constructor(private http: HttpClient) { }
 
-  getAllJokes(page: number = 1, limit: number = 10, sort: string = Sorting.id_desc, searchText: string = ''): Observable<ApiResponse> {
+  getAllJokes(page: number = 1, limit: number = 10, sort: string = Sorting.id_desc, searchText: string = '', jokeType: string = ''): Observable<ApiResponse> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString())
@@ -20,6 +20,10 @@ export class JokesService {
 
     if (searchText) {
       params = params.set('searchText', searchText);
+    }
+
+    if (jokeType) {
+      params = params.set('jokeType', jokeType);
     }
 
     return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}`, { params });
@@ -35,12 +39,22 @@ export class JokesService {
     return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/search`, { params });
   }
 
-  getRandomJoke(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/random`);
+  getRandomJoke(searchText: string = ''): Observable<ApiResponse> {
+    let params = new HttpParams();
+
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/random`, { params });
   }
 
-  getTenRandomJokes(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/ten`);
+  getTenRandomJokes(searchText: string = ''): Observable<ApiResponse> {
+    let params = new HttpParams();
+
+    if (searchText) {
+      params = params.set('searchText', searchText);
+    }
+    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/ten`, { params });
   }
 
   getJokeById(id: number): Observable<Joke> {

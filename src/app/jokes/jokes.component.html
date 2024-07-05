@@ -5,7 +5,7 @@
     [sort]="sort"
     [amountOfItems]="apiResponse ? apiResponse.data.length : 0"
     (getRandomJokes)="getRandomJokes($event)"
-    (getAllJokes)="getAllJokes()"
+    (getAllJokes)="getAllJokes(1, 10, sortings.id_desc, true)"
     (getJokesByType)="getJokesByType($event)"
     (createJoke)="createJoke()"
     (sortChange)="onSortChange($event)"
@@ -13,7 +13,7 @@
   <!-- List -->
   <app-list
     [apiResponse]="apiResponse"
-    (getAllJokes)="getAllJokes()"
+    (getAllJokes)="getAllJokes(1, 10, sortings.id_desc, true)"
     (onPageChange)="onPageChange($event)"
   ></app-list>
 </div>

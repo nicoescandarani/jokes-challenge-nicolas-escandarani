@@ -18,6 +18,17 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 
 ## Walkthrough
 
+### Functionlities
+
+- Display the jokes comming from the Backend in cards with pagination.
+- Filter jokes by type.
+- Get a random joke.
+- Create a new joke.
+- Delete jokes.
+- Like jokes.
+- Search for jokes.
+- Order jokes by date or likes.
+
 ### Frontend
 
 - This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
@@ -38,7 +49,6 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 >- `DialogComponent`.
 >- `DropdownComponent`.
 >- `IconComponent`.
->- `ListItemComponent`.
 >- `MenuComponent`.
 >- `SearchbarComponent`.
 >- `SpinnerComponent`.
@@ -77,6 +87,7 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 >- `CreateJokeDialogComponent`: A dialog component to create a new joke. It utilizes a reactive form to validate inputs.
 >- `JokesHeaderComponent`: A header component that displays the `Create a Joke` button and the `Sorting` and `Filtering` options.
 >- `ListComponent`: Displays the jokes as cards and it utilizes the `listItemComponent` to display each joke. Also it uses `ngx-pagination` library to paginate the jokes.
+>- `ListItemComponent`: Displays the joke as a card. It contains the joke, the type tag, and the likes amount with its like button. It also has the copy the joke to the clipboard button.
 
 >Services:
 >- `JokesService`: A service that contains the main logic to interact with the backend API.
