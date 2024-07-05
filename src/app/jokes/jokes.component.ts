@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Subscription, catchError, skip, take } from 'rxjs';
+import { catchError, skip, take } from 'rxjs';
 import { JokesService } from './services/jokes/jokes.service';
-import { ApiResponse, CopyJoke, Joke } from './interfaces/joke';
+import { ApiResponse, Joke } from './interfaces/joke';
 import { FormGroup } from '@angular/forms';
 import { StateService } from '../services/state/state.service';
 import { AutoUnsubscribeComponent } from '../utils/auto-unsubscribe.component';
@@ -70,37 +70,31 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   }
 
   onPageChange(page: number): void {
-    this.suppressSearch = true;
     this.getAllJokes(page, 10, this.sort.value as Sorting);
   }
 
   onSortChange(sort: DropdownItem): void {
-    this.suppressSearch = true;
     this.sort = sort;
     this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   orderById(): void {
-    this.suppressSearch = true;
     this.sort.value = this.sort.value === Sorting.id_asc ? Sorting.id_desc : Sorting.id_asc;
     this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   orderByLikes(): void {
-    this.suppressSearch = true;
     this.sort.value = this.sort.value === Sorting.likes_asc ? Sorting.likes_desc : Sorting.likes_asc;
     this.getAllJokes(1, 10, this.sort.value as Sorting);
   }
 
   getRandomJokes(amount: RandomJokesAmount): void {
-    this.suppressSearch = true;
     if (amount === RandomJokesAmount.one) {
       this.jokesService.getRandomJoke(this.searchText)
         .pipe(take(1))
         .subscribe(res => {
           this.apiResponse = res;
           this.jokes = res.data;
-          this.suppressSearch = false;
         });
     } else {
       this.jokesService.getTenRandomJokes(this.searchText)
@@ -108,20 +102,17 @@ export class JokesComponent extends AutoUnsubscribeComponent {
         .subscribe(res => {
           this.apiResponse = res;
           this.jokes = res.data;
-          this.suppressSearch = false;
         });
     }
   }
 
   getJokesByType(type: DropdownItem): void {
     this.selectedJokeType = type;
-    this.suppressSearch = true;
     this.jokesService.getAllJokes(1, 10, this.sort.value, this.searchText, this.selectedJokeType.value)
       .pipe(take(1))
       .subscribe(res => {
         this.apiResponse = res;
         this.jokes = res.data;
-        this.suppressSearch = false;
       });
   }
 

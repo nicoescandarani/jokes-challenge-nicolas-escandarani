@@ -29,16 +29,6 @@ export class JokesService {
     return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}`, { params });
   }
 
-  searchJokes(searchText: string, page: number = 1, limit: number = 10, sort: string = Sorting.id_desc): Observable<ApiResponse> {
-    const params = new HttpParams()
-      .set('searchText', searchText)
-      .set('page', page.toString())
-      .set('limit', limit.toString())
-      .set('sort', sort);
-
-    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/search`, { params });
-  }
-
   getRandomJoke(searchText: string = ''): Observable<ApiResponse> {
     let params = new HttpParams();
 
@@ -57,12 +47,9 @@ export class JokesService {
     return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/ten`, { params });
   }
 
+  // For future implementations.
   getJokeById(id: number): Observable<Joke> {
     return this.http.get<Joke>(`${environment.base_url}/${environment.jokes_sufix}/${id}`);
-  }
-
-  getJokesByType(type: string, count: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${environment.base_url}/${environment.jokes_sufix}/${type}/${count === 10 ? 'ten' : 'random'}`);
   }
 
   createJoke(joke: Joke): Observable<Joke> {
@@ -81,6 +68,7 @@ export class JokesService {
     return this.http.delete<Joke>(`${environment.base_url}/${environment.jokes_sufix}/${id}`);
   }
 
+  // For future improvements.
   deleteMultipleJokes(ids: number[]): Observable<Joke[]> {
     return this.http.delete<Joke[]>(`${environment.base_url}/${environment.jokes_sufix}`, { body: { ids } });
   }
