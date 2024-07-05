@@ -54,7 +54,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
       this.stateService.searchTextSet = '';
       this.selectedJokeType = {} as DropdownItem;
     }
-    this.jokesService.getAllJokes(page, limit, sort, this.searchText || '', this.selectedJokeType.value)
+    this.jokesService.getAllJokes(page, limit, sort, this.searchText || '', this.selectedJokeType.value || '')
       .pipe(
         take(1), // Take only the first emission and complete.
         catchError(err => {

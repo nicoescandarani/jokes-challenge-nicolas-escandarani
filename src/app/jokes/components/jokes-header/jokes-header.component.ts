@@ -25,8 +25,8 @@ export class JokesHeaderComponent {
     { value: Sorting.id_asc, label: 'Latest to Newest' }
   ];
   likesSortingRules: SortingRule[] = [
-    { value: Sorting.likes_desc, label: 'Likes from Highest to Lowest' },
-    { value: Sorting.likes_asc, label: 'Likes from Lowest to Highest' }
+    { value: Sorting.likes_desc, label: 'Most Liked to Least Liked' },
+    { value: Sorting.likes_asc, label: 'Least Liked to Most Liked' }
   ];
   typesSortingRules: DropdownItem[] = [];
   openedMenu: Menu = '';
