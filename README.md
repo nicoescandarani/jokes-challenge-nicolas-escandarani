@@ -110,7 +110,7 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 >These are the changes I made:
 >
 >Joke structure:
->- I added likes amount to the `Joke`.
+>- I added likes amount to the `Joke`. I created the `addIds.js` script to do so. 
 >
 > index.js:
 > 
