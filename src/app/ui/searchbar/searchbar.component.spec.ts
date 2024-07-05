@@ -58,7 +58,7 @@ describe('SearchbarComponent', () => {
     input.dispatchEvent(new Event('input'));
     fixture.detectChanges();
 
-    tick(200); // Less than debounce time
+    tick(200); // Less than debounce time.
 
     expect(mockStateService.searchTextSetValue).not.toBe('immediate search text');
   }));

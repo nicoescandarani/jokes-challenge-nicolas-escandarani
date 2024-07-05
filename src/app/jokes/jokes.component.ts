@@ -56,7 +56,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
     }
     this.jokesService.getAllJokes(page, limit, sort, this.searchText || '', this.selectedJokeType.value)
       .pipe(
-        take(1), // Take only the first emission and complete
+        take(1), // Take only the first emission and complete.
         catchError(err => {
           this.hideData = true;
           return [];
@@ -136,7 +136,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
       type: fg.get('type')?.value
     };
     this.jokesService.createJoke(joke)
-      .pipe(take(1)) // Take only the first emission and complete
+      .pipe(take(1)) // Take only the first emission and complete.
       .subscribe(res => {
         this.jokes.unshift(res);
         this.stateService.addUserJoke(res.id!!);

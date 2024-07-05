@@ -3,7 +3,6 @@ import { DialogComponent } from './dialog.component';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-// Componente de prueba para proyectar contenido dentro del DialogComponent
 @Component({
   template: `
     <ui-dialog>

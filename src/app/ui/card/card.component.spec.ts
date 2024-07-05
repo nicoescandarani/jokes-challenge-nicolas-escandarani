@@ -3,7 +3,6 @@ import { CardComponent } from './card.component';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-// Componente de prueba para proyectar contenido dentro del CardComponent
 @Component({
   template: `
     <ui-card>

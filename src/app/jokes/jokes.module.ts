@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JokesHeaderComponent } from './components/jokes-header/jokes-header.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
 
-
 @NgModule({
   declarations: [
     JokesComponent,

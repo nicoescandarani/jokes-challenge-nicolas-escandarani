@@ -69,11 +69,10 @@
   }
 }
 
-/* Ajustes para dispositivos pequeños */
 @media (max-width: 600px) {
   .list {
     grid-template-columns: 1fr;
-    gap: 18px; /* Menor espacio vertical ya que no hay desplazamiento */
+    gap: 18px;
     &__item-wrapper:nth-child(even) {
       margin-top: 0;
     }

@@ -3,7 +3,6 @@ import { MenuComponent } from './menu.component';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
-// Componente de prueba para proyectar contenido dentro del MenuComponent
 @Component({
   template: `
     <ui-menu>

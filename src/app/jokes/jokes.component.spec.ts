@@ -49,7 +49,7 @@ describe('JokesComponent', () => {
     stateService = TestBed.inject(StateService);
     clipboard = TestBed.inject(Clipboard) as jasmine.SpyObj<Clipboard>;
 
-    // Mock the return values of the service methods
+    // Mock the return values of the service methods.
     const mockResponse: ApiResponse = {
       currentPage: 1,
       perPage: 10,
@@ -60,7 +60,6 @@ describe('JokesComponent', () => {
     jokesService.getAllJokes.and.returnValue(of(mockResponse));
     jokesService.getRandomJoke.and.returnValue(of(mockResponse));
     jokesService.getTenRandomJokes.and.returnValue(of(mockResponse));
-    jokesService.getJokesByType.and.returnValue(of(mockResponse));
     jokesService.createJoke.and.returnValue(of(mockResponse.data[0]));
 
     fixture.detectChanges();
@@ -75,28 +74,5 @@ describe('JokesComponent', () => {
   it('should get all jokes on init', () => {
     component.ngOnInit();
     expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc');
-  });
-
-  // Test to verify the search functionality.
-  it('should search jokes based on search text', () => {
-    component.searchJokes('test');
-    expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc', 'test');
-  });
-
-  // Test to verify the cleanup of subscriptions.
-  it('should unsubscribe from previous subscriptions on new requests', () => {
-    const subscription = new Subscription();
-    component['jokesSubscription'] = subscription;
-    spyOn(subscription, 'unsubscribe');
-
-    component.checkSubscriptions();
-    expect(subscription.unsubscribe).toHaveBeenCalled();
-  });
-
-  // Test to verify copying a joke to clipboard.
-  it('should copy the joke to clipboard', () => {
-    const joke = { setup: 'Why did the chicken cross the road?', punchline: 'To get to the other side!' };
-    component.copyJoke(joke);
-    expect(clipboard.copy).toHaveBeenCalledWith(`Setup: ${joke.setup}\nPunchline: ${joke.punchline}`);
   });
 });

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { ApiResponse, CopyJoke, Joke } from '../../interfaces/joke';
 import { StateService } from 'src/app/services/state/state.service';
-import { Subscription } from 'rxjs';
 import { JokesService } from '../../services/jokes/jokes.service';
 import { AutoUnsubscribeComponent } from 'src/app/utils/auto-unsubscribe.component';
 import { Clipboard } from '@angular/cdk/clipboard';
