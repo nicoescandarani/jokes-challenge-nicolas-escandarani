@@ -26,12 +26,11 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   sortings = Sorting;
 
   private suppressSearch: boolean = true;
-  private jokesSubscription?: Subscription;
 
   constructor(private jokesService: JokesService, private stateService: StateService) {
     super();
     const searchTextSubscription$ = this.stateService.searchText$
-    .pipe(skip(1))
+      .pipe(skip(1))
       .subscribe(searchText => {
         this.searchText = searchText;
         if (!this.suppressSearch) {
@@ -55,9 +54,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
       this.stateService.searchTextSet = '';
       this.selectedJokeType = {} as DropdownItem;
     }
-    this.checkSubscriptions();
-    // Create a new subscription.
-    this.jokesSubscription = this.jokesService.getAllJokes(page, limit, sort, this.searchText || '', this.selectedJokeType.value)
+    this.jokesService.getAllJokes(page, limit, sort, this.searchText || '', this.selectedJokeType.value)
       .pipe(
         take(1), // Take only the first emission and complete
         catchError(err => {
@@ -98,44 +95,43 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   getRandomJokes(amount: RandomJokesAmount): void {
     this.suppressSearch = true;
     if (amount === RandomJokesAmount.one) {
-      this.jokesSubscription = this.jokesService.getRandomJoke(this.searchText).subscribe(res => {
-        this.apiResponse = res;
-        this.jokes = res.data;
-        this.suppressSearch = false;
-      });
+      this.jokesService.getRandomJoke(this.searchText)
+        .pipe(take(1))
+        .subscribe(res => {
+          this.apiResponse = res;
+          this.jokes = res.data;
+          this.suppressSearch = false;
+        });
     } else {
-      this.jokesSubscription = this.jokesService.getTenRandomJokes(this.searchText).subscribe(res => {
-        this.apiResponse = res;
-        this.jokes = res.data;
-        this.suppressSearch = false;
-      });
+      this.jokesService.getTenRandomJokes(this.searchText)
+        .pipe(take(1))
+        .subscribe(res => {
+          this.apiResponse = res;
+          this.jokes = res.data;
+          this.suppressSearch = false;
+        });
     }
   }
 
   getJokesByType(type: DropdownItem): void {
     this.selectedJokeType = type;
     this.suppressSearch = true;
-    this.checkSubscriptions();
-    // Create a new subscription.
-    this.jokesSubscription = this.jokesService.getAllJokes(1, 10, this.sort.value, this.searchText, this.selectedJokeType.value).subscribe(res => {
-      this.apiResponse = res;
-      this.jokes = res.data;
-      this.suppressSearch = false;
-    });
+    this.jokesService.getAllJokes(1, 10, this.sort.value, this.searchText, this.selectedJokeType.value)
+      .pipe(take(1))
+      .subscribe(res => {
+        this.apiResponse = res;
+        this.jokes = res.data;
+        this.suppressSearch = false;
+      });
   }
 
   searchJokes(): void {
-    this.jokesService.getAllJokes(1, 10, this.sort.value, this.searchText).subscribe(res => {
+    this.jokesService.getAllJokes(1, 10, this.sort.value, this.searchText)
+    .pipe(take(1))
+    .subscribe(res => {
       this.apiResponse = res;
       this.jokes = res.data;
     });
-  }
-
-  checkSubscriptions(): void {
-    // Unsubscribe from the previous subscription if it exists.
-    if (this.jokesSubscription) {
-      this.jokesSubscription.unsubscribe();
-    }
   }
 
   createJoke(): void {
