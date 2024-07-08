@@ -4,10 +4,11 @@ import { JokesService } from './services/jokes/jokes.service';
 import { ApiResponse, Joke } from './interfaces/joke';
 import { FormGroup } from '@angular/forms';
 import { StateService } from '../services/state/state.service';
-import { AutoUnsubscribeComponent } from '../utils/auto-unsubscribe.component';
+import { AutoUnsubscribeComponent } from '../shared/base-clases/auto-unsubscribe.component';
 import { RandomJokesAmount } from './enums/joke';
-import { DropdownItem } from '../utils/interfaces/interfaces';
-import { Sorting } from '../utils/enums/enums';
+import { DropdownItem } from '../shared/interfaces/interfaces';
+import { Sorting } from '../shared/enums/enums';
+import { idSortingRules } from '../shared/constants';
 
 @Component({
   selector: 'app-jokes',
@@ -17,7 +18,7 @@ import { Sorting } from '../utils/enums/enums';
 export class JokesComponent extends AutoUnsubscribeComponent {
   apiResponse!: ApiResponse;
   jokes: Joke[] = [];
-  sort: DropdownItem = { value: Sorting.id_desc, label: 'Newest to Latest' };
+  sort: DropdownItem = idSortingRules[0];
   openNewJokeDialog: boolean = false;
   userJokes: number[] = [];
   hideData: boolean = false;
@@ -51,6 +52,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = Sorting.id_desc, resetSearchAndType?: boolean): void {
     this.suppressSearch = true; // Set the flag to suppress search.
     if (resetSearchAndType) {
+      this.sort = idSortingRules[0];
       this.stateService.searchTextSet = '';
       this.selectedJokeType = {} as DropdownItem;
     }

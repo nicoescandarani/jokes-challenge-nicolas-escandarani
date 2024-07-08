@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core
 import { ApiResponse, CopyJoke, Joke } from '../../interfaces/joke';
 import { StateService } from 'src/app/services/state/state.service';
 import { JokesService } from '../../services/jokes/jokes.service';
-import { AutoUnsubscribeComponent } from 'src/app/utils/auto-unsubscribe.component';
+import { AutoUnsubscribeComponent } from 'src/app/shared/base-clases/auto-unsubscribe.component';
 import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({

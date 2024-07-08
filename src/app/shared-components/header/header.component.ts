@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { UiModule } from 'src/app/ui/ui.module';
 import { BehaviorSubject, debounceTime, distinctUntilChanged } from 'rxjs';
-import { AutoUnsubscribeComponent } from 'src/app/utils/auto-unsubscribe.component';
+import { AutoUnsubscribeComponent } from 'src/app/shared/base-clases/auto-unsubscribe.component';
 import { StateService } from 'src/app/services/state/state.service';
 
 @Component({

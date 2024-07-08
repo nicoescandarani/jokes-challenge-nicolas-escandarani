@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SpinnerService } from './services/spinner/spinner.service';
 import { AlertService } from './services/alert/alert.service';
-import { AutoUnsubscribeComponent } from './utils/auto-unsubscribe.component';
-import { AlertTypeOptions } from './utils/types/types';
+import { AutoUnsubscribeComponent } from './shared/base-clases/auto-unsubscribe.component';
+import { AlertTypeOptions } from './shared/types/types';
 
 @Component({
   selector: 'app-root',

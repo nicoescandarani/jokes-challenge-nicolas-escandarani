@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AlertTypeOptions } from 'src/app/utils/types/types';
+import { AlertTypeOptions } from 'src/app/shared/types/types';
 
 @Injectable({
   providedIn: 'root'

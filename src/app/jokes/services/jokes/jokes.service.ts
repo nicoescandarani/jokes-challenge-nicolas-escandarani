@@ -3,13 +3,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse, Joke } from '../../interfaces/joke';
 import { environment } from 'src/environments/environment';
-import { Sorting } from 'src/app/utils/enums/enums';
+import { Sorting } from 'src/app/shared/enums/enums';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JokesService {
-
   constructor(private http: HttpClient) { }
 
   getAllJokes(page: number = 1, limit: number = 10, sort: string = Sorting.id_desc, searchText: string = '', jokeType: string = ''): Observable<ApiResponse> {
@@ -53,7 +52,7 @@ export class JokesService {
   }
 
   createJoke(joke: Joke): Observable<Joke> {
-    return this.http.post<Joke>(`${environment.base_url}/${environment.jokes_sufix}`, joke);
+    return this.http.post<Joke>(`${environment.base_url}/${environment.jokes_sufix}a`, joke);
   }
 
   addLike(jokeId: number): Observable<Joke> {

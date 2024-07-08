@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JokeType } from '../../enums/joke';
 import { TitleCasePipe } from '@angular/common';
 import { TypesBgColors } from '../../types/types';
-import { DropdownItem } from 'src/app/utils/interfaces/interfaces';
+import { DropdownItem } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'app-create-joke-dialog',

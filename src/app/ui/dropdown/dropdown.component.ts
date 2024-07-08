@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core';
-import { DropdownItem } from 'src/app/utils/interfaces/interfaces';
+import { DropdownItem } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
   selector: 'ui-dropdown',

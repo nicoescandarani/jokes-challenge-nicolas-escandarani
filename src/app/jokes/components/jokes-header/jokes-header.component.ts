@@ -2,8 +2,8 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from
 import { JokeType, RandomJokesAmount } from '../../enums/joke';
 import { TitleCasePipe } from '@angular/common';
 import { TypesBgColors } from '../../types/types';
-import { DropdownItem, SortingRule } from 'src/app/utils/interfaces/interfaces';
-import { Sorting } from 'src/app/utils/enums/enums';
+import { DropdownItem, SortingRule } from 'src/app/shared/interfaces/interfaces';
+import { idSortingRules, likesSortingRules } from 'src/app/shared/constants';
 
 type Menu = 'filters' | 'sort' | '';
 
@@ -20,14 +20,8 @@ export class JokesHeaderComponent {
   typesBgColors: Map<string, string> = TypesBgColors;
   selectedJokeType: DropdownItem = {} as DropdownItem;
 
-  idSortingRules: SortingRule[] = [
-    { value: Sorting.id_desc, label: 'Newest to Latest' },
-    { value: Sorting.id_asc, label: 'Latest to Newest' }
-  ];
-  likesSortingRules: SortingRule[] = [
-    { value: Sorting.likes_desc, label: 'Most Liked to Least Liked' },
-    { value: Sorting.likes_asc, label: 'Least Liked to Most Liked' }
-  ];
+  idSortingRules: SortingRule[] = idSortingRules;
+  likesSortingRules: SortingRule[] = likesSortingRules;
   typesSortingRules: DropdownItem[] = [];
   openedMenu: Menu = '';
 
