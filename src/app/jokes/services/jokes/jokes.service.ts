@@ -52,7 +52,7 @@ export class JokesService {
   }
 
   createJoke(joke: Joke): Observable<Joke> {
-    return this.http.post<Joke>(`${environment.base_url}/${environment.jokes_sufix}a`, joke);
+    return this.http.post<Joke>(`${environment.base_url}/${environment.jokes_sufix}`, joke);
   }
 
   addLike(jokeId: number): Observable<Joke> {
