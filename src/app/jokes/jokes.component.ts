@@ -52,6 +52,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   getAllJokes(page: number = 1, limit: number = 10, sort: Sorting = Sorting.id_desc, resetSearchAndType?: boolean): void {
     this.suppressSearch = true; // Set the flag to suppress search.
     if (resetSearchAndType) {
+      // Reset the sort rule, search text and selected joke type.
       this.sort = idSortingRules[0];
       this.stateService.searchTextSet = '';
       this.selectedJokeType = {} as DropdownItem;
@@ -93,14 +94,14 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   getRandomJokes(amount: RandomJokesAmount): void {
     if (amount === RandomJokesAmount.one) {
       this.jokesService.getRandomJoke(this.searchText)
-        .pipe(take(1))
+        .pipe(take(1)) // Take only the first emission and complete.
         .subscribe(res => {
           this.apiResponse = res;
           this.jokes = res.data;
         });
     } else {
       this.jokesService.getTenRandomJokes(this.searchText)
-        .pipe(take(1))
+        .pipe(take(1)) // Take only the first emission and complete.
         .subscribe(res => {
           this.apiResponse = res;
           this.jokes = res.data;
@@ -111,7 +112,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
   getJokesByType(type: DropdownItem): void {
     this.selectedJokeType = type;
     this.jokesService.getAllJokes(1, 10, this.sort.value, this.searchText, this.selectedJokeType.value)
-      .pipe(take(1))
+      .pipe(take(1)) // Take only the first emission and complete.
       .subscribe(res => {
         this.apiResponse = res;
         this.jokes = res.data;
@@ -120,7 +121,7 @@ export class JokesComponent extends AutoUnsubscribeComponent {
 
   searchJokes(): void {
     this.jokesService.getAllJokes(1, 10, this.sort.value, this.searchText)
-    .pipe(take(1))
+    .pipe(take(1)) // Take only the first emission and complete.
     .subscribe(res => {
       this.apiResponse = res;
       this.jokes = res.data;
