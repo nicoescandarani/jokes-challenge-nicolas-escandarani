@@ -73,6 +73,6 @@ describe('JokesComponent', () => {
   // Test to verify the getAllJokes method.
   it('should get all jokes on init', () => {
     component.ngOnInit();
-    expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc', '', undefined);
+    expect(jokesService.getAllJokes).toHaveBeenCalledWith(1, 10, 'id_desc', '', '');
   });
 });
